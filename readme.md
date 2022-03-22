@@ -35,13 +35,11 @@ The verify phase is required, otherwise some of the reports won't be generated.
 
 ## Usage
 
-As this is a Spring Boot app it may be run with Maven or through your preferred IDE.
+The project requires an authorization server. The Docker compose file will take care of this, while running the project:
 
 ```
-mvn spring-boot:run
+docker-compose -f docker/docker-compose.yml up
 ```
-
-Once running the web service will be available at [http://localhost:8080/](http://localhost:8080/).
 
 ### Requests with Postman
 

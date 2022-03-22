@@ -1,0 +1,31 @@
+version: '3'
+services:
+    auth-server:
+        image: bitnami/openldap:2
+        container_name: openldap-auth-server
+        volumes:
+          - ./imports:/opt/jboss/keycloak/imports
+        ports:
+            - "1389:1389"
+            - "1636:1636"
+        environment:
+            - LDAP_ADMIN_USERNAME=admin
+            - LDAP_ADMIN_PASSWORD=adminpassword
+            - LDAP_USERS=user01,user02
+            - LDAP_PASSWORDS=password1,password2
+    ws:
+        depends_on:
+            - auth-server
+        build:
+            context: ../
+            dockerfile: ./docker/Dockerfile
+        container_name: ldap-ws
+        ports:
+            - "8080:8080"
+            - "8000:8000"
+        environment:
+            # Auth server
+            - spring.ldap.url=ldap://auth-server:1389
+            - spring.ldap.base=dc=example,dc=com
+            - spring.ldap.username=uid=admin,ou=system
+            - spring.ldap.password=secret

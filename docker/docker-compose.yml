@@ -11,8 +11,6 @@ services:
         environment:
             - LDAP_ADMIN_USERNAME=admin
             - LDAP_ADMIN_PASSWORD=1234
-            - LDAP_USERS=user01,user02
-            - LDAP_PASSWORDS=password1,password2
             - LDAP_ROOT=dc=bernardomg,dc=com
     ws:
         depends_on:
@@ -26,7 +24,7 @@ services:
             - "8000:8000"
         environment:
             # Auth server
-            - spring.ldap.url=ldap://auth-server:1389
+            - spring.ldap.url=ldap://host.docker.internal:1389
             - spring.ldap.base=dc=bernardomg,dc=com
             - spring.ldap.username=uid=user,ou=people
-            - spring.ldap.password=secret
+            - spring.ldap.password=1234

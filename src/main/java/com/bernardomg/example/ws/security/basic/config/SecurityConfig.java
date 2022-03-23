@@ -75,6 +75,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         auth.ldapAuthentication()
             .userSearchFilter("(uid={0})")
             .contextSource()
+            .managerDn("admin")
+            .managerPassword("1234")
             .url(url);
     }
 

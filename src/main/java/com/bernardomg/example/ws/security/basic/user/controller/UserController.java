@@ -24,6 +24,7 @@
 
 package com.bernardomg.example.ws.security.basic.user.controller;
 
+import java.util.List;
 import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,8 +32,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bernardomg.example.ws.security.basic.user.model.User;
-import com.bernardomg.example.ws.security.basic.user.service.UserService;
+import com.bernardomg.example.ws.security.basic.user.model.Person;
+import com.bernardomg.example.ws.security.basic.user.repository.PersonRepository;
 
 /**
  * Rest controller for the users.
@@ -43,28 +44,18 @@ import com.bernardomg.example.ws.security.basic.user.service.UserService;
 @RequestMapping("/rest/user")
 public class UserController {
 
-    /**
-     * Example entity service.
-     */
-    private final UserService service;
+    private final PersonRepository personRepository;
 
-    /**
-     * Constructs a controller with the specified dependencies.
-     *
-     * @param userService
-     *            user service
-     */
     @Autowired
-    public UserController(final UserService userService) {
+    public UserController(final PersonRepository personRepository) {
         super();
 
-        service = Objects.requireNonNull(userService,
-            "Received a null pointer as service");
+        this.personRepository = Objects.requireNonNull(personRepository);
     }
 
     @GetMapping
-    public Iterable<? extends User> read() {
-        return service.getUsers();
+    public List<Person> read() {
+        return personRepository.getAllPersons();
     }
 
 }

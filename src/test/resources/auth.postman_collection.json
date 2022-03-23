@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "fcde65ef-dfcd-47e2-90dc-b104c23f5e26",
+		"_postman_id": "94183053-dd8f-4b0d-9922-7b2aa3ccaa76",
 		"name": "Auth",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -119,13 +119,13 @@
 				"type": "basic",
 				"basic": [
 					{
-						"key": "username",
-						"value": "admin",
+						"key": "password",
+						"value": "1234",
 						"type": "string"
 					},
 					{
-						"key": "password",
-						"value": "1234",
+						"key": "username",
+						"value": "admin",
 						"type": "string"
 					}
 				]

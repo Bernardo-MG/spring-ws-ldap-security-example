@@ -25,6 +25,7 @@
 package com.bernardomg.example.ws.security.basic.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -46,14 +47,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserDetailsService userDetailsService;
 
+    @Value("${spring.ldap.url}")
+    private String             ldapUrl;
+
+    @Value("${spring.ldap.base}")
+    private String             ldapBase;
+
     public SecurityConfig() {
         super();
-    }
-
-    @Override
-    public void configure(WebSecurity web) throws Exception {
-        web.ignoring()
-            .antMatchers("/login/**");
     }
 
     @Bean
@@ -63,12 +64,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring()
+            .antMatchers("/login/**");
+    }
+
+    @Override
     protected void configure(final AuthenticationManagerBuilder auth)
             throws Exception {
         auth.ldapAuthentication()
             .userSearchFilter("(uid={0})")
             .contextSource()
-            .url("ldap://auth-server:1389/dc=breadcrumbdata,dc=com");
+            .url(ldapUrl + "/" + ldapBase);
     }
 
     @Override

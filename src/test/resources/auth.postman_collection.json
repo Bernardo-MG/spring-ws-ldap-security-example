@@ -125,7 +125,7 @@
 					},
 					{
 						"key": "username",
-						"value": "admin",
+						"value": "user",
 						"type": "string"
 					}
 				]

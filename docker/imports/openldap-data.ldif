@@ -1,0 +1,19 @@
+dn: ou=groups,dc=bernardomg,dc=com
+objectclass: top
+objectclass: organizationalUnit
+ou: groups
+
+dn: ou=people,dc=bernardomg,dc=com
+objectclass: top
+objectclass: organizationalUnit
+ou: people
+
+dn: uid=user,ou=people,dc=bernardomg,dc=com
+objectclass: top
+objectclass: person
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
+cn: Name
+sn: Surname
+uid: user
+userPassword: 1234

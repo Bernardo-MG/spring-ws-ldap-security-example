@@ -4,7 +4,7 @@ services:
         image: bitnami/openldap:2
         container_name: openldap-auth-server
         volumes:
-          - ./imports:/opt/jboss/keycloak/imports
+          - ./imports:/ldifs
         ports:
             - "1389:1389"
             - "1636:1636"
@@ -28,5 +28,5 @@ services:
             # Auth server
             - spring.ldap.url=ldap://auth-server:1389
             - spring.ldap.base=dc=bernardomg,dc=com
-            - spring.ldap.username=uid=admin,ou=system
+            - spring.ldap.username=uid=user,ou=people
             - spring.ldap.password=secret

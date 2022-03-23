@@ -24,7 +24,6 @@
 
 package com.bernardomg.example.ws.security.basic.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -38,23 +37,21 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
 import org.springframework.security.config.annotation.web.configurers.FormLoginConfigurer;
 import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
-import org.springframework.security.core.userdetails.UserDetailsService;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    private UserDetailsService userDetailsService;
+    private final String url;
 
-    @Value("${spring.ldap.url}")
-    private String             ldapUrl;
-
-    @Value("${spring.ldap.base}")
-    private String             ldapBase;
-
-    public SecurityConfig() {
+    public SecurityConfig(@Value("${spring.ldap.url}") final String ldapUrl,
+            @Value("${spring.ldap.base}") final String ldapBase) {
         super();
+
+        url = ldapUrl + "/" + ldapBase;
     }
 
     @Bean
@@ -72,10 +69,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(final AuthenticationManagerBuilder auth)
             throws Exception {
+
+        log.debug("Using LDAP URL {}", url);
+
         auth.ldapAuthentication()
             .userSearchFilter("(uid={0})")
             .contextSource()
-            .url(ldapUrl + "/" + ldapBase);
+            .url(url);
     }
 
     @Override

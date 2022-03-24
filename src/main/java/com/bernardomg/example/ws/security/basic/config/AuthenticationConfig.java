@@ -22,21 +22,39 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.ws.security.basic.user.model;
+package com.bernardomg.example.ws.security.basic.config;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
+import com.bernardomg.example.ws.security.basic.auth.service.PersistentUserDetailsService;
+import com.bernardomg.example.ws.security.basic.user.repository.PersistentUserRepository;
 
 /**
- * Role privilege. Represents a specific permission.
+ * Authentication configuration.
  * 
- * @author Bernardo Mart&iacute;nez Garrido
+ * @author Bernardo Martínez Garrido
  *
  */
-public interface Privilege {
+@Configuration
+public class AuthenticationConfig {
 
-    /**
-     * Returns the privilege name.
-     * 
-     * @return the privilege name
-     */
-    public String getName();
+    public AuthenticationConfig() {
+        super();
+    }
+
+    @Bean("passwordEncoder")
+    public PasswordEncoder getPasswordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Bean("userDetailsService")
+    public UserDetailsService getUserDetailsService(
+            final PersistentUserRepository userRepository) {
+        return new PersistentUserDetailsService(userRepository);
+    }
 
 }

@@ -79,13 +79,6 @@ public interface User {
     public String getPassword();
 
     /**
-     * Returns the user roles.
-     * 
-     * @return the user roles
-     */
-    public Iterable<? extends Role> getRoles();
-
-    /**
      * Returns the user username.
      * 
      * @return the user username

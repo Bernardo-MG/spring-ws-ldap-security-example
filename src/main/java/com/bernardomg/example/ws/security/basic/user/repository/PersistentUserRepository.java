@@ -22,51 +22,44 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.ws.security.basic.user.model;
+package com.bernardomg.example.ws.security.basic.user.repository;
+
+import java.util.Optional;
+
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.bernardomg.example.ws.security.basic.user.model.persistent.PersistentUser;
 
 /**
- * User role. Groups a set of permissions.
+ * Repository for users.
  * 
  * @author Bernardo Mart&iacute;nez Garrido
  *
  */
-public interface Role {
+public interface PersistentUserRepository
+        extends JpaRepository<PersistentUser, Long> {
 
     /**
-     * Returns the user id.
+     * Returns the user details for the received email.
      * 
-     * @return the user id
+     * @param email
+     *            email to search for
+     * @return the user details for the received email
      */
-    public Long getId();
+    public Optional<PersistentUser> findOneByEmail(final String email);
 
     /**
-     * Returns the role name.
+     * Returns the user details for the received username.
      * 
-     * @return the role name
+     * @param username
+     *            username to search for
+     * @return the user details for the received username
      */
-    public String getName();
+    public Optional<PersistentUser> findOneByUsername(final String username);
 
-    /**
-     * Returns the user privileges.
-     * 
-     * @return the user privileges
-     */
-    public Iterable<? extends Privilege> getPrivileges();
-
-    /**
-     * Sets the user id.
-     * 
-     * @param identifier
-     *            the new id
-     */
-    public void setId(final Long identifier);
-
-    /**
-     * Sets the role name.
-     * 
-     * @param role
-     *            new name
-     */
-    public void setName(final String role);
+    @Override
+    @CacheEvict(cacheNames = { "user", "users", "roles" }, allEntries = true)
+    public <S extends PersistentUser> S save(S entity);
 
 }

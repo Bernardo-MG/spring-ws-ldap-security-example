@@ -1,17 +1,24 @@
 version: '3'
 services:
     auth-server:
-        image: bitnami/openldap:2
-        container_name: openldap-auth-server
+        image: osixia/openldap:1.1.11
+        container_name: ldap-auth-server
         volumes:
           - ./imports:/ldifs
         ports:
             - "1389:1389"
             - "1636:1636"
         environment:
-            - LDAP_ADMIN_USERNAME=admin
-            - LDAP_ADMIN_PASSWORD=1234
-            - LDAP_ROOT=dc=bernardomg,dc=com
+            LDAP_ORGANISATION: "bernardomg.com organization"
+            LDAP_DOMAIN: "bernardomg.com"
+            LDAP_ADMIN_PASSWORD: "admin"
+    auth-server-seed:
+        image: osixia/openldap:1.1.11
+        volumes:
+            - ./imports:/ldif_files
+        links:
+            - openldap
+        entrypoint: '/ldif_files/importData.sh'
     ws:
         depends_on:
             - auth-server
@@ -22,9 +29,3 @@ services:
         ports:
             - "8080:8080"
             - "8000:8000"
-        environment:
-            # Auth server
-            - spring.ldap.url=ldap://host.docker.internal:1389
-            - spring.ldap.base=dc=bernardomg,dc=com
-            - spring.ldap.username=uid=user,ou=people
-            - spring.ldap.password=1234

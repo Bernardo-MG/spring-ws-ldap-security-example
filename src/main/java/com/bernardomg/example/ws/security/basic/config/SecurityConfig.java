@@ -24,6 +24,7 @@
 
 package com.bernardomg.example.ws.security.basic.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -37,6 +38,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
 import org.springframework.security.config.annotation.web.configurers.FormLoginConfigurer;
 import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -45,7 +47,10 @@ import lombok.extern.slf4j.Slf4j;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final String url;
+    private final String       url;
+
+    @Autowired
+    private UserDetailsService userDetailsService;
 
     public SecurityConfig(@Value("${spring.ldap.url}") final String ldapUrl,
             @Value("${spring.ldap.base}") final String ldapBase) {
@@ -72,12 +77,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         log.debug("Using LDAP URL {}", url);
 
+        auth.userDetailsService(userDetailsService);
         auth.ldapAuthentication()
-            .userSearchFilter("(uid={0})")
+            .userDnPatterns("uid={0},ou=people")
+            .groupSearchBase("ou=groups")
             .contextSource()
-            .managerDn("admin")
-            .managerPassword("1234")
-            .url(url);
+            .url("ldap://auth-server:1389/dc=bernardomg,dc=com")
+            .managerDn("cn=admin,dc=bernardomg,dc=com")
+            .managerPassword("admin");
     }
 
     @Override
@@ -100,12 +107,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.csrf()
             .disable()
-            .cors()
-            .and()
-            .authorizeRequests(authorizeRequestsCustomizer)
-            .formLogin(formLoginCustomizer)
-            .logout(logoutCustomizer)
-            .httpBasic();
+            .cors();
     }
 
 }

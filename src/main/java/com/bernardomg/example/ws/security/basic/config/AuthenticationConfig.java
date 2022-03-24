@@ -24,8 +24,11 @@
 
 package com.bernardomg.example.ws.security.basic.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.ldap.core.LdapTemplate;
+import org.springframework.ldap.core.support.LdapContextSource;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -55,6 +58,27 @@ public class AuthenticationConfig {
     public UserDetailsService getUserDetailsService(
             final PersistentUserRepository userRepository) {
         return new PersistentUserDetailsService(userRepository);
+    }
+
+    @Bean
+    public LdapContextSource contextSource(
+            @Value("${spring.ldap.url}") final String url,
+            @Value("${spring.ldap.base}") final String base,
+            @Value("${spring.ldap.username}") final String username,
+            @Value("${spring.ldap.password}") final String password) {
+        LdapContextSource contextSource = new LdapContextSource();
+
+        contextSource.setUrl(url);
+        contextSource.setBase(base);
+        contextSource.setUserDn(username);
+        contextSource.setPassword(password);
+
+        return contextSource;
+    }
+
+    @Bean
+    public LdapTemplate ldapTemplate(final LdapContextSource contextSource) {
+        return new LdapTemplate(contextSource);
     }
 
 }

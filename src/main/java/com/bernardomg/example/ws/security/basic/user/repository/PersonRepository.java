@@ -12,6 +12,9 @@ import org.springframework.stereotype.Component;
 import com.bernardomg.example.ws.security.basic.user.mapper.PersonAttributesMapper;
 import com.bernardomg.example.ws.security.basic.user.model.Person;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Component
 public class PersonRepository {
 
@@ -32,6 +35,7 @@ public class PersonRepository {
         } catch (Exception e) {
             System.out.println("Error: " + e);
         }
+        log.debug("Users: {}", persons);
         return persons;
     }
 

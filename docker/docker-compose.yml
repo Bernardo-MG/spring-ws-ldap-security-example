@@ -29,3 +29,9 @@ services:
         ports:
             - "8080:8080"
             - "8000:8000"
+        environment:
+            # LDAP
+            - spring.ldap.url=ldap://host.docker.internal:1389/dc=bernardomg,dc=com
+            - spring.ldap.base=ou=groups
+            - spring.ldap.username=cn=admin,dc=bernardomg,dc=com
+            - spring.ldap.password=admin

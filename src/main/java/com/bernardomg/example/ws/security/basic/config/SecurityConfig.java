@@ -47,16 +47,23 @@ import lombok.extern.slf4j.Slf4j;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final String       url;
-
     @Autowired
     private UserDetailsService userDetailsService;
 
-    public SecurityConfig(@Value("${spring.ldap.url}") final String ldapUrl,
-            @Value("${spring.ldap.base}") final String ldapBase) {
-        super();
+    @Value("${spring.ldap.url}")
+    private String             url;
 
-        url = ldapUrl + "/" + ldapBase;
+    @Value("${spring.ldap.base}")
+    private String             base;
+
+    @Value("${spring.ldap.username}")
+    private String             username;
+
+    @Value("${spring.ldap.password}")
+    private String             password;
+
+    public SecurityConfig() {
+        super();
     }
 
     @Bean
@@ -74,17 +81,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(final AuthenticationManagerBuilder auth)
             throws Exception {
-
-        log.debug("Using LDAP URL {}", url);
-
         auth.userDetailsService(userDetailsService);
         auth.ldapAuthentication()
             .userDnPatterns("uid={0},ou=people")
-            .groupSearchBase("ou=groups")
+            .groupSearchBase(base)
             .contextSource()
-            .url("ldap://auth-server:1389/dc=bernardomg,dc=com")
-            .managerDn("cn=admin,dc=bernardomg,dc=com")
-            .managerPassword("admin");
+            .url(url)
+            .managerDn(username)
+            .managerPassword(password);
     }
 
     @Override

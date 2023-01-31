@@ -17,7 +17,7 @@ services:
         volumes:
             - ./imports:/ldif_files
         links:
-            - openldap
+            - auth-server
         entrypoint: '/ldif_files/importData.sh'
     ws:
         depends_on:

@@ -44,10 +44,6 @@ local.properties
 /src/main/resources/rebel.xml
 .springBeans
 
-# IntelliJ Idea files #
-.idea
-*.iml
-
 # Windows files #
 Thumbs.db
 Desktop.ini
@@ -58,3 +54,4 @@ Desktop.ini
 ._*
 .Spotlight-V100
 .Trashes
+/target/

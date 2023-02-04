@@ -64,10 +64,10 @@ If you wish to fork or modify the code, visit the [GitHub project page][scm], wh
 
 The project has been released under the [MIT License][license].
 
-[issues]: https://github.com/bernardo-mg/spring-ws-ldap-example/issues
-[javadoc-develop]: https://docs.bernardomg.com/development/maven/spring-ws-ldap-example/apidocs
-[javadoc-release]: https://docs.bernardomg.com/maven/spring-ws-ldap-example/apidocs
+[issues]: https://github.com/bernardo-mg/spring-ws-ldap-security-example/issues
+[javadoc-develop]: https://docs.bernardomg.com/development/maven/spring-ws-ldap-security-example/apidocs
+[javadoc-release]: https://docs.bernardomg.com/maven/spring-ws-ldap-security-example/apidocs
 [license]: https://www.opensource.org/licenses/mit-license.php
-[scm]: https://github.com/bernardo-mg/spring-ws-ldap-example
-[site-develop]: https://docs.bernardomg.com/development/maven/spring-ws-ldap-example
-[site-release]: https://docs.bernardomg.com/maven/spring-ws-ldap-example
+[scm]: https://github.com/bernardo-mg/spring-ws-ldap-security-example
+[site-develop]: https://docs.bernardomg.com/development/maven/spring-ws-ldap-security-example
+[site-release]: https://docs.bernardomg.com/maven/spring-ws-ldap-security-example

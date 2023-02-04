@@ -20,13 +20,13 @@
    <!-- ********************************************** -->
 
    <groupId>com.bernardomg.example</groupId>
-   <artifactId>spring-ws-ldap-example</artifactId>
+   <artifactId>spring-ws-ldap-security-example</artifactId>
    <version>1.0.0-SNAPSHOT</version>
    <packaging>war</packaging>
 
    <name>Spring WS LDAP Authentication Example</name>
    <description>Example for LDAP authentication with Spring.</description>
-   <url>https://github.com/bernardo-mg/spring-ws-ldap-example</url>
+   <url>https://github.com/bernardo-mg/spring-ws-ldap-security-example</url>
    <inceptionYear>2022</inceptionYear>
 
    <licenses>
@@ -42,20 +42,20 @@
    <!-- ********************************************** -->
 
    <scm>
-      <connection>scm:git:https://github.com/bernardo-mg/spring-ws-ldap-example.git</connection>
-      <developerConnection>scm:git:https://github.com/bernardo-mg/spring-ws-ldap-example.git</developerConnection>
+      <connection>scm:git:https://github.com/bernardo-mg/spring-ws-ldap-security-example.git</connection>
+      <developerConnection>scm:git:https://github.com/bernardo-mg/spring-ws-ldap-security-example.git</developerConnection>
       <tag>head</tag>
-      <url>https://www.github.com/bernardo-mg/spring-ws-ldap-example</url>
+      <url>https://www.github.com/bernardo-mg/spring-ws-ldap-security-example</url>
    </scm>
 
    <issueManagement>
       <system>GitHub</system>
-      <url>https://www.github.com/bernardo-mg/spring-ws-ldap-example/issues</url>
+      <url>https://www.github.com/bernardo-mg/spring-ws-ldap-security-example/issues</url>
    </issueManagement>
 
    <ciManagement>
       <system>Github</system>
-      <url>https://www.github.com/bernardo-mg/spring-ws-ldap-example/actions</url>
+      <url>https://www.github.com/bernardo-mg/spring-ws-ldap-security-example/actions</url>
       <notifiers />
    </ciManagement>
 

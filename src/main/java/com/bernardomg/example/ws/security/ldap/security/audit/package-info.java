@@ -23,7 +23,7 @@
  */
 
 /**
- * User model.
+ * Audit components.
  */
 
-package com.bernardomg.example.ws.security.ldap.security.user.model;
+package com.bernardomg.example.ws.security.ldap.security.audit;

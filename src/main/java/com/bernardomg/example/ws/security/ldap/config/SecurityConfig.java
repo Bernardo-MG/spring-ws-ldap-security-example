@@ -1,7 +1,7 @@
 /**
  * The MIT License (MIT)
  * <p>
- * Copyright (c) 2021 the original author or authors.
+ * Copyright (c) 2022 the original author or authors.
  * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -24,98 +24,51 @@
 
 package com.bernardomg.example.ws.security.ldap.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.Customizer;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
-import org.springframework.security.config.annotation.web.configurers.FormLoginConfigurer;
-import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
-import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.ldap.core.LdapTemplate;
+import org.springframework.ldap.core.support.LdapContextSource;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
+/**
+ * Security configuration.
+ *
+ * @author Bernardo Mart&iacute;nez Garrido
+ *
+ */
 @Configuration
-@EnableWebSecurity
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
-
-    @Value("${spring.ldap.base}")
-    private String             base;
-
-    @Value("${spring.ldap.password}")
-    private String             password;
-
-    @Value("${spring.ldap.url}")
-    private String             url;
-
-    @Autowired
-    private UserDetailsService userDetailsService;
-
-    @Value("${spring.ldap.username}")
-    private String             username;
+@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
+public class SecurityConfig {
 
     public SecurityConfig() {
         super();
     }
 
     @Bean
-    @Override
-    public AuthenticationManager authenticationManager() throws Exception {
-        return super.authenticationManager();
+    public LdapContextSource contextSource(@Value("${spring.ldap.url}") final String url,
+            @Value("${spring.ldap.base}") final String base, @Value("${spring.ldap.username}") final String username,
+            @Value("${spring.ldap.password}") final String password) {
+        final LdapContextSource contextSource = new LdapContextSource();
+
+        contextSource.setUrl(url);
+        contextSource.setBase(base);
+        contextSource.setUserDn(username);
+        contextSource.setPassword(password);
+
+        return contextSource;
     }
 
-    @Override
-    public void configure(final WebSecurity web) throws Exception {
-        web.ignoring()
-            .antMatchers("/login/**");
+    @Bean("passwordEncoder")
+    public PasswordEncoder getPasswordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 
-    @Override
-    protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService);
-        auth.ldapAuthentication()
-            .userDnPatterns("uid={0},ou=people")
-            .groupSearchBase(base)
-            .contextSource()
-            .url(url)
-            .managerDn(username)
-            .managerPassword(password);
-    }
-
-    @Override
-    protected void configure(final HttpSecurity http) throws Exception {
-        final Customizer<ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry> authorizeRequestsCustomizer;
-        final Customizer<FormLoginConfigurer<HttpSecurity>>                                                 formLoginCustomizer;
-        final Customizer<LogoutConfigurer<HttpSecurity>>                                                    logoutCustomizer;
-
-        // Authorization
-        authorizeRequestsCustomizer = c -> c.antMatchers("/actuator/**")
-            .permitAll()
-            .antMatchers("/login/**")
-            .permitAll()
-            .anyRequest()
-            .authenticated();
-        // Login form
-        formLoginCustomizer = c -> c.disable();
-        // Logout
-        logoutCustomizer = c -> c.disable();
-
-        http.csrf()
-            .disable()
-            .cors()
-            .and()
-            .authorizeRequests(authorizeRequestsCustomizer)
-            .formLogin(formLoginCustomizer)
-            .logout(logoutCustomizer)
-            .httpBasic();
+    @Bean
+    public LdapTemplate ldapTemplate(final LdapContextSource contextSource) {
+        return new LdapTemplate(contextSource);
     }
 
 }

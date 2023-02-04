@@ -33,6 +33,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import com.bernardomg.example.ws.security.ldap.security.user.repository.PrivilegeRepository;
 import com.bernardomg.example.ws.security.ldap.security.user.repository.UserRepository;
 import com.bernardomg.example.ws.security.ldap.security.userdetails.PersistentUserDetailsService;
 
@@ -69,8 +70,9 @@ public class AuthenticationConfig {
     }
 
     @Bean("userDetailsService")
-    public UserDetailsService getUserDetailsService(final UserRepository userRepository) {
-        return new PersistentUserDetailsService(userRepository);
+    public UserDetailsService getUserDetailsService(final UserRepository userRepository,
+            final PrivilegeRepository privilegeRepository) {
+        return new PersistentUserDetailsService(userRepository, privilegeRepository);
     }
 
     @Bean

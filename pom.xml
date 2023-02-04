@@ -24,8 +24,8 @@
    <version>1.0.0-SNAPSHOT</version>
    <packaging>war</packaging>
 
-   <name>Spring WS LDAP Authentication Example</name>
-   <description>Example for LDAP authentication with Spring.</description>
+   <name>Spring WS LDAP Security Example</name>
+   <description>Example for LDAP security with Spring.</description>
    <url>https://github.com/bernardo-mg/spring-ws-ldap-security-example</url>
    <inceptionYear>2022</inceptionYear>
 

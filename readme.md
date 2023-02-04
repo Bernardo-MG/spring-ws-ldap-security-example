@@ -1,6 +1,6 @@
-# Spring WS LDAP Authentication Example
+# Spring WS LDAP Security Example
 
-Example for LDAP authentication with Spring.
+Example for LDAP security with Spring.
 
 [![Release docs](https://img.shields.io/badge/docs-release-blue.svg)][site-release]
 [![Development docs](https://img.shields.io/badge/docs-develop-blue.svg)][site-develop]

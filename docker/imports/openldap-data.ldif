@@ -22,7 +22,7 @@ objectclass: inetOrgPerson
 cn: Name
 sn: Surname
 uid: user
-userPassword: 1234
+userPassword: $2a$04$gV.k/KKIqr3oPySzs..bx.8absYRTpNe8AbHmPP90.ErW0ICGOsVW
 
 dn: cn=testUsers,ou=groups,dc=bernardomg,dc=com
 objectclass: top

@@ -2,6 +2,22 @@
 
 Example for LDAP security with Spring.
 
+The project requires an authorization server. The Docker compose file will take care of this, while running the project:
+
+```
+docker-compose -f docker/docker-compose.yml up
+```
+
+## Requests with Postman
+
+Import `src/test/resources/LDAP.postman_collection.json` to get queries for all the operations including authentication.
+
+## Users
+
+| User    | Password | Permissions |
+|---------|----------|-------------|
+| admin   | 1234     | all         |
+
 [![Release docs](https://img.shields.io/badge/docs-release-blue.svg)][site-release]
 [![Development docs](https://img.shields.io/badge/docs-develop-blue.svg)][site-develop]
 
@@ -32,14 +48,6 @@ mvn verify site
 ```
 
 The verify phase is required, otherwise some of the reports won't be generated.
-
-## Usage
-
-The project requires an authorization server. The Docker compose file will take care of this, while running the project:
-
-```
-docker-compose -f docker/docker-compose.yml up
-```
 
 ### Requests with Postman
 

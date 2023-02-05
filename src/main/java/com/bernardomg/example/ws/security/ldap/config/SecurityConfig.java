@@ -24,11 +24,8 @@
 
 package com.bernardomg.example.ws.security.ldap.config;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.ldap.core.LdapTemplate;
-import org.springframework.ldap.core.support.LdapContextSource;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -47,28 +44,9 @@ public class SecurityConfig {
         super();
     }
 
-    @Bean
-    public LdapContextSource contextSource(@Value("${spring.ldap.url}") final String url,
-            @Value("${spring.ldap.base}") final String base, @Value("${spring.ldap.username}") final String username,
-            @Value("${spring.ldap.password}") final String password) {
-        final LdapContextSource contextSource = new LdapContextSource();
-
-        contextSource.setUrl(url);
-        contextSource.setBase(base);
-        contextSource.setUserDn(username);
-        contextSource.setPassword(password);
-
-        return contextSource;
-    }
-
     @Bean("passwordEncoder")
     public PasswordEncoder getPasswordEncoder() {
         return new BCryptPasswordEncoder();
-    }
-
-    @Bean
-    public LdapTemplate ldapTemplate(final LdapContextSource contextSource) {
-        return new LdapTemplate(contextSource);
     }
 
 }

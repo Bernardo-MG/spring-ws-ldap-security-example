@@ -1,7 +1,7 @@
 version: '3'
 services:
     auth-server:
-        image: osixia/openldap:1.1.11
+        image: bitnami/openldap:2.5.13
         container_name: ldap-auth-server
         volumes:
           - ./imports:/ldifs
@@ -9,9 +9,11 @@ services:
             - "1389:1389"
             - "1636:1636"
         environment:
-            LDAP_ORGANISATION: "bernardomg.com organization"
-            LDAP_DOMAIN: "bernardomg.com"
+            LDAP_ROOT: "dc=bernardomg,dc=com"
+            LDAP_USER_DC: "bernardomg"
+            LDAP_GROUP: "people"
             LDAP_ADMIN_PASSWORD: "admin"
+            LDAP_CONFIG_ADMIN_PASSWORD: "admin"
     auth-server-seed:
         image: osixia/openldap:1.1.11
         volumes:
@@ -31,7 +33,7 @@ services:
             - "8000:8000"
         environment:
             # LDAP
-            - spring.ldap.url=ldap://auth-server
+            - spring.ldap.url=ldap://auth-server:1389/dc=bernardomg,dc=com
             - spring.ldap.base=ou=groups
             - spring.ldap.username=cn=admin,dc=bernardomg,dc=com
             - spring.ldap.password=admin

@@ -73,11 +73,7 @@ public class WebSecurityConfig {
             .userDnPatterns("uid={0},ou=people")
             .groupSearchBase(base)
             .contextSource()
-            .url(url)
-            .and()
-            .passwordCompare()
-            .passwordEncoder(passwordEncoder)
-            .passwordAttribute("userPassword");
+            .url(url);
     }
 
     @Bean

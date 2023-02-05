@@ -22,47 +22,24 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.ws.security.ldap.entity.model;
+package com.bernardomg.example.ws.security.ldap.domain.entity.service;
 
-import java.io.Serializable;
+import com.bernardomg.example.ws.security.ldap.domain.entity.model.ExampleEntity;
 
 /**
- * A simple entity to be used as an example.
+ * Service for the example entity domain.
+ * <p>
+ * This is a domain service just to allow the endpoints querying the entities they are asked for.
  *
  * @author Bernardo Mart&iacute;nez Garrido
  */
-public interface ExampleEntity extends Serializable {
+public interface ExampleEntityService {
 
     /**
-     * Returns the identifier assigned to this entity.
-     * <p>
-     * If no identifier has been assigned yet, then the value is expected to be {@code null} or lower than zero.
+     * Returns all the entities from the DB.
      *
-     * @return the entity's identifier
+     * @return the persisted entities
      */
-    public Integer getId();
-
-    /**
-     * Returns the name of the entity.
-     *
-     * @return the entity's name
-     */
-    public String getName();
-
-    /**
-     * Sets the identifier assigned to this entity.
-     *
-     * @param identifier
-     *            the identifier for the entity
-     */
-    public void setId(final Integer identifier);
-
-    /**
-     * Changes the name of the entity.
-     *
-     * @param name
-     *            the name to set on the entity
-     */
-    public void setName(final String name);
+    public Iterable<? extends ExampleEntity> getAllEntities();
 
 }

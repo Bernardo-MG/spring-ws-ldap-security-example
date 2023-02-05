@@ -22,50 +22,46 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.ws.security.ldap.entity.model;
+package com.bernardomg.example.ws.security.ldap.domain.entity.service;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import java.util.Objects;
 
-import lombok.Data;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.bernardomg.example.ws.security.ldap.domain.entity.model.PersistentExampleEntity;
+import com.bernardomg.example.ws.security.ldap.domain.entity.persistence.repository.ExampleEntityRepository;
 
 /**
- * Persistent entity for the example application.
- * <p>
- * This makes use of JPA annotations for the persistence configuration.
+ * Default implementation of the example entity service.
  *
  * @author Bernardo Mart&iacute;nez Garrido
+ *
  */
-@Entity(name = "ExampleEntity")
-@Table(name = "example_entities")
-@Data
-public class PersistentExampleEntity implements ExampleEntity {
+@Service
+public class DefaultExampleEntityService implements ExampleEntityService {
 
     /**
-     * Serialization ID.
+     * Repository for the domain entities handled by the service.
      */
-    @Transient
-    private static final long serialVersionUID = 1328776989450853491L;
+    private final ExampleEntityRepository entityRepository;
 
     /**
-     * Entity's ID.
+     * Constructs an entities service with the specified repository.
+     *
+     * @param repository
+     *            the repository for the entity instances
      */
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false, unique = true)
-    private Integer           id               = -1;
+    @Autowired
+    public DefaultExampleEntityService(final ExampleEntityRepository repository) {
+        super();
 
-    /**
-     * Name of the entity.
-     * <p>
-     * This is to have additional data apart from the id, to be used on the tests.
-     */
-    @Column(name = "name", nullable = false, unique = true)
-    private String            name             = "";
+        entityRepository = Objects.requireNonNull(repository, "Received a null pointer as repository");
+    }
+
+    @Override
+    public final Iterable<PersistentExampleEntity> getAllEntities() {
+        return entityRepository.findAll();
+    }
 
 }

@@ -21,11 +21,12 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+
 /**
- * Repositories.
+ * Services.
  * <p>
- * Similar to a DAO, a repository is a pattern which allows handling the persistence layer as if it was a collection,
- * where entities are stored and read from.
+ * While in the MVC architecture all the logic seems to be contained inside the controllers, using an additional layer
+ * of services helps to isolate all the important logic in the application.
  */
 
-package com.bernardomg.example.ws.security.ldap.entity.persistence.repository;
+package com.bernardomg.example.ws.security.ldap.domain.entity.service;

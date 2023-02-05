@@ -26,4 +26,4 @@
  * Controller classes.
  */
 
-package com.bernardomg.example.ws.security.ldap.entity.controller;
+package com.bernardomg.example.ws.security.ldap.domain.entity.controller;

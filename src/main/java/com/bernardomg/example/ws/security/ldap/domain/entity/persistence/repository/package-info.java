@@ -21,25 +21,11 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-
-package com.bernardomg.example.ws.security.ldap.entity.service;
-
-import com.bernardomg.example.ws.security.ldap.entity.model.ExampleEntity;
-
 /**
- * Service for the example entity domain.
+ * Repositories.
  * <p>
- * This is a domain service just to allow the endpoints querying the entities they are asked for.
- *
- * @author Bernardo Mart&iacute;nez Garrido
+ * Similar to a DAO, a repository is a pattern which allows handling the persistence layer as if it was a collection,
+ * where entities are stored and read from.
  */
-public interface ExampleEntityService {
 
-    /**
-     * Returns all the entities from the DB.
-     *
-     * @return the persisted entities
-     */
-    public Iterable<? extends ExampleEntity> getAllEntities();
-
-}
+package com.bernardomg.example.ws.security.ldap.domain.entity.persistence.repository;

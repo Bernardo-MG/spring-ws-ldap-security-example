@@ -22,46 +22,47 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.ws.security.ldap.entity.service;
+package com.bernardomg.example.ws.security.ldap.domain.entity.model;
 
-import java.util.Objects;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import com.bernardomg.example.ws.security.ldap.entity.model.PersistentExampleEntity;
-import com.bernardomg.example.ws.security.ldap.entity.persistence.repository.ExampleEntityRepository;
+import java.io.Serializable;
 
 /**
- * Default implementation of the example entity service.
+ * A simple entity to be used as an example.
  *
  * @author Bernardo Mart&iacute;nez Garrido
- *
  */
-@Service
-public class DefaultExampleEntityService implements ExampleEntityService {
+public interface ExampleEntity extends Serializable {
 
     /**
-     * Repository for the domain entities handled by the service.
-     */
-    private final ExampleEntityRepository entityRepository;
-
-    /**
-     * Constructs an entities service with the specified repository.
+     * Returns the identifier assigned to this entity.
+     * <p>
+     * If no identifier has been assigned yet, then the value is expected to be {@code null} or lower than zero.
      *
-     * @param repository
-     *            the repository for the entity instances
+     * @return the entity's identifier
      */
-    @Autowired
-    public DefaultExampleEntityService(final ExampleEntityRepository repository) {
-        super();
+    public Integer getId();
 
-        entityRepository = Objects.requireNonNull(repository, "Received a null pointer as repository");
-    }
+    /**
+     * Returns the name of the entity.
+     *
+     * @return the entity's name
+     */
+    public String getName();
 
-    @Override
-    public final Iterable<PersistentExampleEntity> getAllEntities() {
-        return entityRepository.findAll();
-    }
+    /**
+     * Sets the identifier assigned to this entity.
+     *
+     * @param identifier
+     *            the identifier for the entity
+     */
+    public void setId(final Integer identifier);
+
+    /**
+     * Changes the name of the entity.
+     *
+     * @param name
+     *            the name to set on the entity
+     */
+    public void setName(final String name);
 
 }

@@ -1,7 +1,7 @@
 /**
  * The MIT License (MIT)
  * <p>
- * Copyright (c) 2021 the original author or authors.
+ * Copyright (c) 2022 the original author or authors.
  * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -24,6 +24,11 @@
 
 package com.bernardomg.example.ws.security.ldap.mvc.response.model;
 
+import java.util.Arrays;
+import java.util.Collection;
+
+import com.bernardomg.example.ws.security.ldap.mvc.error.model.Failure;
+
 /**
  * Response to the frontend.
  *
@@ -35,17 +40,56 @@ package com.bernardomg.example.ws.security.ldap.mvc.response.model;
 public interface Response<T> {
 
     /**
+     * Creates an empty response.
+     *
+     * @param <T>
+     *            response content type
+     * @return an empty response
+     */
+    public static <T> Response<T> empty() {
+        return new ImmutableResponse<>();
+    }
+
+    /**
+     * Creates an error response.
+     *
+     * @param failures
+     *            failures which caused the error
+     * @return an error response
+     */
+    public static ErrorResponse error(final Collection<? extends Failure> failures) {
+        return new ImmutableErrorResponse<>(failures);
+    }
+
+    /**
+     * Creates an error response.
+     *
+     * @param failure
+     *            failure which caused the error
+     * @return an error response
+     */
+    public static ErrorResponse error(final Failure failure) {
+        return new ImmutableErrorResponse<>(Arrays.asList(failure));
+    }
+
+    /**
+     * Creates a response with the specified content.
+     *
+     * @param <T>
+     *            response content type
+     * @param content
+     *            response content
+     * @return response with the received content
+     */
+    public static <T> Response<T> of(final T content) {
+        return new ImmutableResponse<>(content);
+    }
+
+    /**
      * Returns the response content.
      *
      * @return the response content
      */
     public T getContent();
-
-    /**
-     * Returns the response status.
-     *
-     * @return the response status
-     */
-    public ResponseStatus getStatus();
 
 }

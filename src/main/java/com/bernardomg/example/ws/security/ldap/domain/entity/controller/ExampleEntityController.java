@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.ws.security.ldap.entity.controller;
+package com.bernardomg.example.ws.security.ldap.domain.entity.controller;
 
 import java.util.Objects;
 
@@ -31,8 +31,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bernardomg.example.ws.security.ldap.entity.model.ExampleEntity;
-import com.bernardomg.example.ws.security.ldap.entity.service.ExampleEntityService;
+import com.bernardomg.example.ws.security.ldap.domain.entity.model.ExampleEntity;
+import com.bernardomg.example.ws.security.ldap.domain.entity.service.ExampleEntityService;
 
 /**
  * Rest controller for the example entities.

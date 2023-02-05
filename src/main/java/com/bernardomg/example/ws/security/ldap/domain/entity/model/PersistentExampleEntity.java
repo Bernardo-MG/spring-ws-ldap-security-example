@@ -22,32 +22,50 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.ws.security.ldap.entity.persistence.repository;
+package com.bernardomg.example.ws.security.ldap.domain.entity.model;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.JpaRepository;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 
-import com.bernardomg.example.ws.security.ldap.entity.model.PersistentExampleEntity;
+import lombok.Data;
 
 /**
- * Spring-JPA repository for {@link PersistentExampleEntity}.
+ * Persistent entity for the example application.
  * <p>
- * This is a simple repository just to allow the endpoints querying the entities they are asked for.
+ * This makes use of JPA annotations for the persistence configuration.
  *
  * @author Bernardo Mart&iacute;nez Garrido
  */
-public interface ExampleEntityRepository extends JpaRepository<PersistentExampleEntity, Integer> {
+@Entity(name = "ExampleEntity")
+@Table(name = "example_entities")
+@Data
+public class PersistentExampleEntity implements ExampleEntity {
 
     /**
-     * Returns all entities with a partial match to the name.
-     *
-     * @param name
-     *            name for searching
-     * @param page
-     *            pagination to apply
-     * @return all entities at least partially matching the name
+     * Serialization ID.
      */
-    public Page<PersistentExampleEntity> findByNameContaining(final String name, final Pageable page);
+    @Transient
+    private static final long serialVersionUID = 1328776989450853491L;
+
+    /**
+     * Entity's ID.
+     */
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false, unique = true)
+    private Integer           id               = -1;
+
+    /**
+     * Name of the entity.
+     * <p>
+     * This is to have additional data apart from the id, to be used on the tests.
+     */
+    @Column(name = "name", nullable = false, unique = true)
+    private String            name             = "";
 
 }

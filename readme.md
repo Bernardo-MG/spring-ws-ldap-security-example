@@ -1,6 +1,22 @@
-# Spring WS LDAP Authentication Example
+# Spring WS LDAP Security Example
 
-Example for LDAP authentication with Spring.
+Example for LDAP security with Spring.
+
+The project requires an authorization server. The Docker compose file will take care of this, while running the project:
+
+```
+docker-compose -f docker/docker-compose.yml up
+```
+
+## Requests with Postman
+
+Import `src/test/resources/LDAP.postman_collection.json` to get queries for all the operations including authentication.
+
+## Users
+
+| User    | Password | Permissions |
+|---------|----------|-------------|
+| admin   | 1234     | all         |
 
 [![Release docs](https://img.shields.io/badge/docs-release-blue.svg)][site-release]
 [![Development docs](https://img.shields.io/badge/docs-develop-blue.svg)][site-develop]
@@ -33,16 +49,6 @@ mvn verify site
 
 The verify phase is required, otherwise some of the reports won't be generated.
 
-## Usage
-
-As this is a Spring Boot app it may be run with Maven or through your preferred IDE.
-
-```
-mvn spring-boot:run
-```
-
-Once running the web service will be available at [http://localhost:8080/](http://localhost:8080/).
-
 ### Requests with Postman
 
 Import `src/test/resources/auth.postman_collection.json` to get queries for all the operations including authentication.
@@ -66,10 +72,10 @@ If you wish to fork or modify the code, visit the [GitHub project page][scm], wh
 
 The project has been released under the [MIT License][license].
 
-[issues]: https://github.com/bernardo-mg/spring-ws-ldap-example/issues
-[javadoc-develop]: https://docs.bernardomg.com/development/maven/spring-ws-ldap-example/apidocs
-[javadoc-release]: https://docs.bernardomg.com/maven/spring-ws-ldap-example/apidocs
+[issues]: https://github.com/bernardo-mg/spring-ws-ldap-security-example/issues
+[javadoc-develop]: https://docs.bernardomg.com/development/maven/spring-ws-ldap-security-example/apidocs
+[javadoc-release]: https://docs.bernardomg.com/maven/spring-ws-ldap-security-example/apidocs
 [license]: https://www.opensource.org/licenses/mit-license.php
-[scm]: https://github.com/bernardo-mg/spring-ws-ldap-example
-[site-develop]: https://docs.bernardomg.com/development/maven/spring-ws-ldap-example
-[site-release]: https://docs.bernardomg.com/maven/spring-ws-ldap-example
+[scm]: https://github.com/bernardo-mg/spring-ws-ldap-security-example
+[site-develop]: https://docs.bernardomg.com/development/maven/spring-ws-ldap-security-example
+[site-release]: https://docs.bernardomg.com/maven/spring-ws-ldap-security-example

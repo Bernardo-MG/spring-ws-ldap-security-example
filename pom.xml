@@ -12,7 +12,7 @@
    <parent>
       <groupId>com.bernardomg.maven</groupId>
       <artifactId>base-pom</artifactId>
-      <version>1.5.0</version>
+      <version>1.5.3</version>
    </parent>
 
    <!-- ********************************************** -->
@@ -20,13 +20,13 @@
    <!-- ********************************************** -->
 
    <groupId>com.bernardomg.example</groupId>
-   <artifactId>spring-ws-ldap-example</artifactId>
-   <version>1.0.0-SNAPSHOT</version>
+   <artifactId>spring-ws-ldap-security-example</artifactId>
+   <version>1.0.0</version>
    <packaging>war</packaging>
 
-   <name>Spring WS LDAP Authentication Example</name>
-   <description>Example for LDAP authentication with Spring.</description>
-   <url>https://github.com/bernardo-mg/spring-ws-ldap-example</url>
+   <name>Spring WS LDAP Security Example</name>
+   <description>Example for LDAP security with Spring.</description>
+   <url>https://github.com/bernardo-mg/spring-ws-ldap-security-example</url>
    <inceptionYear>2022</inceptionYear>
 
    <licenses>
@@ -42,20 +42,20 @@
    <!-- ********************************************** -->
 
    <scm>
-      <connection>scm:git:https://github.com/bernardo-mg/spring-ws-ldap-example.git</connection>
-      <developerConnection>scm:git:https://github.com/bernardo-mg/spring-ws-ldap-example.git</developerConnection>
+      <connection>scm:git:https://github.com/bernardo-mg/spring-ws-ldap-security-example.git</connection>
+      <developerConnection>scm:git:https://github.com/bernardo-mg/spring-ws-ldap-security-example.git</developerConnection>
       <tag>head</tag>
-      <url>https://www.github.com/bernardo-mg/spring-ws-ldap-example</url>
+      <url>https://www.github.com/bernardo-mg/spring-ws-ldap-security-example</url>
    </scm>
 
    <issueManagement>
       <system>GitHub</system>
-      <url>https://www.github.com/bernardo-mg/spring-ws-ldap-example/issues</url>
+      <url>https://www.github.com/bernardo-mg/spring-ws-ldap-security-example/issues</url>
    </issueManagement>
 
    <ciManagement>
       <system>Github</system>
-      <url>https://www.github.com/bernardo-mg/spring-ws-ldap-example/actions</url>
+      <url>https://www.github.com/bernardo-mg/spring-ws-ldap-security-example/actions</url>
       <notifiers />
    </ciManagement>
 
@@ -64,40 +64,6 @@
    <!-- ********************************************** -->
 
    <profiles>
-      <profile>
-         <!-- Profile for the Eclipse Maven plugin -->
-         <!-- Sets the POM so this plugin does not give the usual unregistered 
-            goals errors -->
-         <!-- It will be activated automatically on Eclipse if this has the 
-            m2e plugin, by detecting the version property -->
-         <id>eclipse-maven</id>
-         <activation>
-            <property>
-               <name>m2e.version</name>
-            </property>
-         </activation>
-         <build>
-            <pluginManagement>
-               <plugins>
-                  <plugin>
-                     <!-- m2e lifecycle mapping -->
-                     <!-- This is used to configure the Maven plugin for 
-                        Eclipse. -->
-                     <!-- Among other things, it allows registering goals, 
-                        which Eclipse would otherwise reject. -->
-                     <!-- It has no real effect on Maven. -->
-                     <groupId>org.eclipse.m2e</groupId>
-                     <artifactId>lifecycle-mapping</artifactId>
-                     <version>${plugin.lifecycle.version}</version>
-                     <configuration>
-                        <downloadSources>true</downloadSources>
-                        <downloadJavadocs>true</downloadJavadocs>
-                     </configuration>
-                  </plugin>
-               </plugins>
-            </pluginManagement>
-         </build>
-      </profile>
       <!-- ============================================== -->
       <!-- ============ DEPLOYMENT PROFILES ============= -->
       <!-- ============================================== -->
@@ -160,28 +126,22 @@
       <h2.version>1.4.200</h2.version>
       <hamcrest.version>2.2</hamcrest.version>
       <hibernate.validator.version>5.4.3.Final</hibernate.validator.version>
-      <hibernate.version>5.5.6.Final</hibernate.version>
-      <hikari.version>3.4.5</hikari.version>
       <jackson.version>2.12.4</jackson.version>
-      <jpa.version>2.2</jpa.version>
-      <jsonpath.version>2.6.0</jsonpath.version>
-      <junit.jupiter.version>5.8.2</junit.jupiter.version>
-      <liquibase.version>4.8.0</liquibase.version>
-      <log4j.version>2.17.1</log4j.version>
-      <lombok.version>1.18.22</lombok.version>
-      <mockito.version>4.3.1</mockito.version>
-      <slf4j.version>1.7.36</slf4j.version>
-      <spring.boot.version>2.6.3</spring.boot.version>
-      <spring.data.version>2021.1.2</spring.data.version>
-      <spring.version>5.3.16</spring.version>
+      <spring.boot.version>2.7.4</spring.boot.version>
+      <spring.version>5.3.23</spring.version>
       <!-- ============================================== -->
       <!-- ============== PLUGINS VERSIONS ============== -->
       <!-- ============================================== -->
       <plugin.spring.boot.version>${spring.boot.version}</plugin.spring.boot.version>
       <!-- ============================================== -->
+      <!-- ============ PLUGIN CONFIGURATION ============ -->
+      <!-- ============================================== -->
+      <!-- Checkstyle customized rules file -->
+      <checkstyle.config.location>${project.basedir}/src/config/checkstyle/checkstyle-rules.xml</checkstyle.config.location>
+      <!-- ============================================== -->
       <!-- ================= MAVEN SITE ================= -->
       <!-- ============================================== -->
-      <site.skin.version>2.2.6</site.skin.version>
+      <site.skin.version>2.3.0</site.skin.version>
    </properties>
 
    <!-- ********************************************** -->
@@ -199,10 +159,10 @@
             <scope>import</scope>
          </dependency>
          <dependency>
-            <!-- Spring Data BOM -->
-            <groupId>org.springframework.data</groupId>
-            <artifactId>spring-data-bom</artifactId>
-            <version>${spring.data.version}</version>
+            <!-- Spring Boot Dependencies BOM -->
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-dependencies</artifactId>
+            <version>${spring.boot.version}</version>
             <type>pom</type>
             <scope>import</scope>
          </dependency>
@@ -211,14 +171,6 @@
             <groupId>com.fasterxml.jackson</groupId>
             <artifactId>jackson-bom</artifactId>
             <version>${jackson.version}</version>
-            <type>pom</type>
-            <scope>import</scope>
-         </dependency>
-         <dependency>
-            <!-- JUnit BOM -->
-            <groupId>org.junit</groupId>
-            <artifactId>junit-bom</artifactId>
-            <version>${junit.jupiter.version}</version>
             <type>pom</type>
             <scope>import</scope>
          </dependency>
@@ -285,13 +237,28 @@
          <artifactId>spring-orm</artifactId>
       </dependency>
       <!-- ============================================== -->
+      <!-- ============= SPRING SECURITY ================ -->
+      <!-- ============================================== -->
+      <dependency>
+         <!-- Spring Security LDAP -->
+         <groupId>org.springframework.security</groupId>
+         <artifactId>spring-security-ldap</artifactId>
+      </dependency>
+      <!-- ============================================== -->
+      <!-- =================== LDAP ===================== -->
+      <!-- ============================================== -->
+      <dependency>
+        <!-- Unboundid LDAP SDK -->
+		<groupId>com.unboundid</groupId>
+		<artifactId>unboundid-ldapsdk</artifactId>
+      </dependency>
+      <!-- ============================================== -->
       <!-- =============== SPRING BOOT ================== -->
       <!-- ============================================== -->
       <dependency>
          <!-- Spring Boot Starter: Web -->
          <groupId>org.springframework.boot</groupId>
          <artifactId>spring-boot-starter-web</artifactId>
-         <version>${spring.boot.version}</version>
          <exclusions>
             <exclusion>
                <groupId>ch.qos.logback</groupId>
@@ -307,25 +274,21 @@
          <!-- Spring Boot Starter: AOP -->
          <groupId>org.springframework.boot</groupId>
          <artifactId>spring-boot-starter-aop</artifactId>
-         <version>${spring.boot.version}</version>
       </dependency>
       <dependency>
          <!-- Spring Boot Starter: Cache -->
          <groupId>org.springframework.boot</groupId>
          <artifactId>spring-boot-starter-cache</artifactId>
-         <version>${spring.boot.version}</version>
       </dependency>
       <dependency>
          <!-- Spring Boot Starter: log4j -->
          <groupId>org.springframework.boot</groupId>
          <artifactId>spring-boot-starter-log4j2</artifactId>
-         <version>${spring.boot.version}</version>
       </dependency>
       <dependency>
          <!-- Spring Boot Starter: Devtools -->
          <groupId>org.springframework.boot</groupId>
          <artifactId>spring-boot-devtools</artifactId>
-         <version>${spring.boot.version}</version>
          <scope>runtime</scope>
          <optional>true</optional>
       </dependency>
@@ -333,13 +296,16 @@
          <!-- Spring Boot Starter: Actuator -->
          <groupId>org.springframework.boot</groupId>
          <artifactId>spring-boot-starter-actuator</artifactId>
-         <version>${spring.boot.version}</version>
       </dependency>
       <dependency>
          <!-- Spring Boot Starter: Security -->
          <groupId>org.springframework.boot</groupId>
          <artifactId>spring-boot-starter-security</artifactId>
-         <version>${spring.boot.version}</version>
+      </dependency>
+      <dependency>
+         <!-- Spring Boot Starter: LDAP -->
+         <groupId>org.springframework.boot</groupId>
+         <artifactId>spring-boot-starter-data-ldap</artifactId>
       </dependency>
       <!-- ============================================== -->
       <!-- ============== JPA DEPENDENCIES ============== -->
@@ -348,7 +314,6 @@
          <!-- JPA API -->
          <groupId>javax.persistence</groupId>
          <artifactId>javax.persistence-api</artifactId>
-         <version>${jpa.version}</version>
       </dependency>
       <!-- ============================================== -->
       <!-- ================ HIBERNATE =================== -->
@@ -357,13 +322,11 @@
          <!-- Hibernate Core -->
          <groupId>org.hibernate</groupId>
          <artifactId>hibernate-core</artifactId>
-         <version>${hibernate.version}</version>
       </dependency>
       <dependency>
          <!-- Hibernate Ehcache -->
          <groupId>org.hibernate</groupId>
          <artifactId>hibernate-ehcache</artifactId>
-         <version>${hibernate.version}</version>
       </dependency>
       <dependency>
          <!-- Hibernate validator -->
@@ -375,7 +338,12 @@
          <!-- Hikari CP -->
          <groupId>com.zaxxer</groupId>
          <artifactId>HikariCP</artifactId>
-         <version>${hikari.version}</version>
+         <exclusions>
+            <exclusion>
+               <groupId>org.slf4j</groupId>
+               <artifactId>slf4j-api</artifactId>
+            </exclusion>
+         </exclusions>
       </dependency>
       <!-- ============================================== -->
       <!-- ==================== H2 ====================== -->
@@ -384,7 +352,6 @@
          <!-- H2 database -->
          <groupId>com.h2database</groupId>
          <artifactId>h2</artifactId>
-         <version>${h2.version}</version>
       </dependency>
       <!-- ============================================== -->
       <!-- ================ LIQUIBASE =================== -->
@@ -393,7 +360,6 @@
          <!-- Liquibase -->
          <groupId>org.liquibase</groupId>
          <artifactId>liquibase-core</artifactId>
-         <version>${liquibase.version}</version>
          <exclusions>
             <exclusion>
                <groupId>ch.qos.logback</groupId>
@@ -408,7 +374,6 @@
          <!-- Lombok -->
          <groupId>org.projectlombok</groupId>
          <artifactId>lombok</artifactId>
-         <version>${lombok.version}</version>
          <scope>provided</scope>
       </dependency>
       <!-- ============================================== -->
@@ -418,31 +383,26 @@
          <!-- SL4J API -->
          <groupId>org.slf4j</groupId>
          <artifactId>slf4j-api</artifactId>
-         <version>${slf4j.version}</version>
       </dependency>
       <dependency>
          <!-- Log4j SLF4J Bridge -->
          <groupId>org.apache.logging.log4j</groupId>
          <artifactId>log4j-slf4j-impl</artifactId>
-         <version>${log4j.version}</version>
       </dependency>
       <dependency>
          <!-- Log4j core -->
          <groupId>org.apache.logging.log4j</groupId>
          <artifactId>log4j-core</artifactId>
-         <version>${log4j.version}</version>
       </dependency>
       <dependency>
          <!-- Log4j Commons Logging Bridge -->
          <groupId>org.apache.logging.log4j</groupId>
          <artifactId>log4j-jcl</artifactId>
-         <version>${log4j.version}</version>
       </dependency>
       <dependency>
          <!-- Log4j Web -->
          <groupId>org.apache.logging.log4j</groupId>
          <artifactId>log4j-web</artifactId>
-         <version>${log4j.version}</version>
       </dependency>
       <!-- ============================================== -->
       <!-- ================= JACKSON ==================== -->
@@ -469,14 +429,12 @@
          <!-- Hamcrest -->
          <groupId>org.hamcrest</groupId>
          <artifactId>hamcrest-core</artifactId>
-         <version>${hamcrest.version}</version>
          <scope>test</scope>
       </dependency>
       <dependency>
          <!-- JSON Path -->
          <groupId>com.jayway.jsonpath</groupId>
          <artifactId>json-path</artifactId>
-         <version>${jsonpath.version}</version>
          <scope>test</scope>
       </dependency>
       <dependency>
@@ -502,7 +460,6 @@
          <!-- Mockito -->
          <groupId>org.mockito</groupId>
          <artifactId>mockito-core</artifactId>
-         <version>${mockito.version}</version>
          <scope>test</scope>
       </dependency>
       <dependency>
@@ -515,7 +472,6 @@
          <!-- Spring Boot Starter: Test -->
          <groupId>org.springframework.boot</groupId>
          <artifactId>spring-boot-starter-test</artifactId>
-         <version>${spring.boot.version}</version>
          <scope>test</scope>
          <exclusions>
             <exclusion>
@@ -605,20 +561,8 @@
    <reporting>
       <plugins>
          <plugin>
-            <!-- Checkstyle -->
-            <!-- Checks that the source files comply with style standards -->
-            <!-- It is using a customized rules file -->
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-checkstyle-plugin</artifactId>
-            <configuration>
-               <!-- The customized rules file -->
-               <configLocation>${project.basedir}/src/config/checkstyle/checkstyle-rules.xml</configLocation>
-            </configuration>
-         </plugin>
-         <plugin>
             <!-- PMD -->
-            <!-- Checks that the code complies with a series of code quality 
-               rules -->
+            <!-- Checks that the code complies with a series of code quality rules -->
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-pmd-plugin</artifactId>
             <configuration>

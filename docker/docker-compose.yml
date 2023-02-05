@@ -35,6 +35,5 @@ services:
             # LDAP
             - spring.ldap.url=ldap://auth-server:1389/dc=bernardomg,dc=com
             - spring.ldap.base=ou=groups
-            - spring.ldap.username=cn=admin,dc=bernardomg,dc=com
-            - spring.ldap.password=admin
+            - spring.ldap.pattern=uid={0},ou=people
             - logging.level.org.springframework.security=DEBUG

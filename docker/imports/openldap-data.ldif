@@ -23,3 +23,10 @@ cn: Name
 sn: Surname
 uid: user
 userPassword: 1234
+
+dn: cn=testUsers,ou=groups,dc=bernardomg,dc=com
+objectclass: top
+objectclass: groupOfUniqueNames
+cn: testUsers
+ou: testUser
+uniqueMember: uid=user,ou=people,dc=bernardomg,dc=com

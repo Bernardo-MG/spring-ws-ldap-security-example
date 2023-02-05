@@ -51,17 +51,14 @@ public class WebSecurityConfig {
     @Value("${spring.ldap.base}")
     private String          base;
 
-    @Value("${spring.ldap.password}")
-    private String          password;
-
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Value("${spring.ldap.pattern}")
+    private String          pattern;
+
     @Value("${spring.ldap.url}")
     private String          url;
-
-    @Value("${spring.ldap.username}")
-    private String          username;
 
     public WebSecurityConfig() {
         super();
@@ -70,10 +67,13 @@ public class WebSecurityConfig {
     @Autowired
     public void configure(final AuthenticationManagerBuilder auth) throws Exception {
         auth.ldapAuthentication()
-            .userDnPatterns("uid={0},ou=people")
+            .userDnPatterns(pattern)
             .groupSearchBase(base)
             .contextSource()
             .url(url);
+        // .and()
+        // .passwordCompare()
+        // .passwordEncoder(passwordEncoder);
     }
 
     @Bean

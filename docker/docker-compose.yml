@@ -33,7 +33,6 @@ services:
             - "8000:8000"
         environment:
             # LDAP
-            - spring.ldap.url=ldap://auth-server:1389/dc=bernardomg,dc=com
-            - spring.ldap.base=ou=groups
-            - spring.ldap.pattern=uid={0},ou=people
-            - logging.level.org.springframework.security=DEBUG
+            - ldap.url=ldap://auth-server:1389/dc=bernardomg,dc=com
+            - ldap.base=ou=groups
+            - ldap.pattern=uid={0},ou=people

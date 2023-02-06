@@ -25,7 +25,6 @@
 package com.bernardomg.example.ws.security.ldap.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
@@ -38,6 +37,8 @@ import org.springframework.security.config.annotation.web.configurers.LogoutConf
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+import com.bernardomg.example.ws.security.ldap.security.property.LdapProperties;
+
 /**
  * Web security configuration.
  *
@@ -48,17 +49,11 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class WebSecurityConfig {
 
-    @Value("${spring.ldap.base}")
-    private String          base;
+    @Autowired
+    private LdapProperties  ldapProperties;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
-
-    @Value("${spring.ldap.pattern}")
-    private String          pattern;
-
-    @Value("${spring.ldap.url}")
-    private String          url;
 
     public WebSecurityConfig() {
         super();
@@ -67,10 +62,10 @@ public class WebSecurityConfig {
     @Autowired
     public void configure(final AuthenticationManagerBuilder auth) throws Exception {
         auth.ldapAuthentication()
-            .userDnPatterns(pattern)
-            .groupSearchBase(base)
+            .userDnPatterns(ldapProperties.getPattern())
+            .groupSearchBase(ldapProperties.getBase())
             .contextSource()
-            .url(url)
+            .url(ldapProperties.getUrl())
             .and()
             .passwordCompare()
             .passwordEncoder(passwordEncoder)

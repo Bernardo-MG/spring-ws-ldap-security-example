@@ -35,7 +35,7 @@ import lombok.Data;
  *
  */
 @Data
-@ConfigurationProperties(prefix = "ldap")
+@ConfigurationProperties(prefix = "security.ldap")
 public final class LdapProperties {
 
     private String base;

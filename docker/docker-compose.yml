@@ -33,6 +33,6 @@ services:
             - "8000:8000"
         environment:
             # LDAP
-            - ldap.url=ldap://auth-server:1389/dc=bernardomg,dc=com
-            - ldap.base=ou=groups
-            - ldap.pattern=uid={0},ou=people
+            - security.ldap.url=ldap://auth-server:1389/dc=bernardomg,dc=com
+            - security.ldap.base=ou=groups
+            - security.ldap.pattern=uid={0},ou=people

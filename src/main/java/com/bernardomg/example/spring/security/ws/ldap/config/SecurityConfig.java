@@ -24,16 +24,11 @@
 
 package com.bernardomg.example.spring.security.ws.ldap.config;
 
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.AuthenticationEntryPoint;
-
-import com.bernardomg.example.spring.security.ws.ldap.security.entrypoint.ErrorResponseAuthenticationEntryPoint;
-import com.bernardomg.example.spring.security.ws.ldap.security.property.LdapProperties;
 
 /**
  * Security configuration.
@@ -43,18 +38,20 @@ import com.bernardomg.example.spring.security.ws.ldap.security.property.LdapProp
  */
 @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
-@EnableConfigurationProperties(LdapProperties.class)
 public class SecurityConfig {
 
+    /**
+     * Default constructor.
+     */
     public SecurityConfig() {
         super();
     }
 
-    @Bean("authenticationEntryPoint")
-    public AuthenticationEntryPoint getAuthenticationEntryPoint() {
-        return new ErrorResponseAuthenticationEntryPoint();
-    }
-
+    /**
+     * Password encoder. Used to match the received password to the one securely stored in the DB.
+     *
+     * @return the password encoder
+     */
     @Bean("passwordEncoder")
     public PasswordEncoder getPasswordEncoder() {
         return new BCryptPasswordEncoder();

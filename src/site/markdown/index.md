@@ -1,6 +1,8 @@
 # Spring WS LDAP Security Example
 
-Example for LDAP security with Spring.
+Example for setting up LDAP Security on a web service with Spring Boot.
+
+## Usage
 
 The project requires an authorization server. The Docker compose file will take care of this, while running the project:
 
@@ -8,9 +10,11 @@ The project requires an authorization server. The Docker compose file will take 
 docker-compose -f docker/docker-compose.yml up
 ```
 
+And the web service be available at [http://localhost:8080/](http://localhost:8080/).
+
 ## Requests with Postman
 
-Import `src/test/resources/LDAP.postman_collection.json` to get queries for all the operations including authentication.
+To make things easier import `src/test/resources/LDAP.postman_collection.json` into Postman. It includes all the queries needed to test the project.
 
 ## Users
 

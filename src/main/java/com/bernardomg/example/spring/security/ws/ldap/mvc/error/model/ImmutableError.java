@@ -28,13 +28,13 @@ import lombok.Data;
 import lombok.NonNull;
 
 /**
- * Immutable failure object.
+ * Immutable error.
  *
  * @author Bernardo Mart&iacute;nez Garrido
  *
  */
 @Data
-public class ImmutableFailure implements Failure {
+public class ImmutableError implements Error {
 
     /**
      * Failure message.

@@ -23,7 +23,7 @@
  */
 
 /**
- * Error handlers.
+ * Error handling.
  */
 
 package com.bernardomg.example.spring.security.ws.ldap.mvc.error.handler;

@@ -57,9 +57,15 @@ public class WebSecurityConfig {
     @Autowired
     private AuthenticationEntryPoint authenticationEntryPoint;
 
+    /**
+     * LDAP configuration properties.
+     */
     @Autowired
     private LdapProperties           ldapProperties;
 
+    /**
+     * Password encoder for checking against encrypted passwords.
+     */
     @Autowired
     private PasswordEncoder          passwordEncoder;
 
@@ -74,6 +80,7 @@ public class WebSecurityConfig {
             .groupSearchBase(ldapProperties.getBase())
             .contextSource()
             .url(ldapProperties.getUrl())
+            // Check against encrypted password
             .and()
             .passwordCompare()
             .passwordEncoder(passwordEncoder)
@@ -105,6 +112,11 @@ public class WebSecurityConfig {
         return http.build();
     }
 
+    /**
+     * Returns the request authorisation configuration.
+     *
+     * @return the request authorisation configuration
+     */
     private final Customizer<ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry>
             getAuthorizeRequestsCustomizer() {
         return c -> {
@@ -113,9 +125,11 @@ public class WebSecurityConfig {
                     .permitAll()
                     .anyRequest()
                     .authenticated()
+                    // Authentication error handling
                     .and()
                     .exceptionHandling()
                     .authenticationEntryPoint(authenticationEntryPoint)
+                    // Stateless
                     .and()
                     .sessionManagement()
                     .sessionCreationPolicy(SessionCreationPolicy.STATELESS);

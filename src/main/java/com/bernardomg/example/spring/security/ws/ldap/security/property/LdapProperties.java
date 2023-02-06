@@ -29,7 +29,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import lombok.Data;
 
 /**
- * JWT configuration properties.
+ * LDAP configuration properties.
  *
  * @author Bernardo Mart&iacute;nez Garrido
  *
@@ -38,10 +38,19 @@ import lombok.Data;
 @ConfigurationProperties(prefix = "security.ldap")
 public final class LdapProperties {
 
+    /**
+     * Group search base.
+     */
     private String base;
 
+    /**
+     * DN search pattern.
+     */
     private String pattern;
 
+    /**
+     * LDAP server URL.
+     */
     private String url;
 
 }

@@ -1,7 +1,7 @@
 /**
  * The MIT License (MIT)
  * <p>
- * Copyright (c) 2021 the original author or authors.
+ * Copyright (c) 2022-2023 the original author or authors.
  * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,66 +22,32 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.spring.security.ws.ldap.mvc.response.model;
-
-import lombok.Data;
-import lombok.NonNull;
+package com.bernardomg.example.spring.security.ws.ldap.mvc.error.model;
 
 /**
- * Default implementation of the response.
+ * Error object. Containing a message with the failure description.
  *
  * @author Bernardo Mart&iacute;nez Garrido
  *
- * @param <T>
- *            response content type
  */
-@Data
-public class DefaultResponse<T> implements Response<T> {
+public interface Error {
 
     /**
-     * Response content.
-     */
-    @NonNull
-    private T              content;
-
-    /**
-     * Response status.
-     */
-    @NonNull
-    private ResponseStatus status = ResponseStatus.SUCCESS;
-
-    /**
-     * Default constructor.
-     */
-    public DefaultResponse() {
-        super();
-    }
-
-    /**
-     * Constructs a response with the specified content.
+     * Builds an error.
      *
-     * @param cont
-     *            content
+     * @param message
+     *            error message
+     * @return error with the message
      */
-    public DefaultResponse(@NonNull final T cont) {
-        super();
-
-        content = cont;
+    public static Error of(final String message) {
+        return new ImmutableError(message);
     }
 
     /**
-     * Constructs a response with the specified content and status.
+     * Returns the error message.
      *
-     * @param cont
-     *            content
-     * @param stat
-     *            status
+     * @return the error message.
      */
-    public DefaultResponse(@NonNull final T cont, @NonNull final ResponseStatus stat) {
-        super();
-
-        content = cont;
-        status = stat;
-    }
+    public String getMessage();
 
 }

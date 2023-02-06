@@ -22,25 +22,8 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.spring.security.ws.ldap.mvc.error.model;
-
 /**
- * Failure object. Containing a message to tell which error ocurred.
- *
- * @author Bernardo Mart&iacute;nez Garrido
- *
+ * Response controller advices.
  */
-public interface Failure {
 
-    public static Failure of(final String code) {
-        return new ImmutableFailure(code);
-    }
-
-    /**
-     * Returns the error message.
-     *
-     * @return the error message.
-     */
-    public String getMessage();
-
-}
+package com.bernardomg.example.spring.security.ws.ldap.mvc.response.controller;

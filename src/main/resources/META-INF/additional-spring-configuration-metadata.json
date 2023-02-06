@@ -1,0 +1,17 @@
+{"properties": [
+  {
+    "name": "security.ldap.url",
+    "type": "java.lang.String",
+    "description": "LDAP server URL"
+  },
+  {
+    "name": "security.ldap.base",
+    "type": "java.lang.String",
+    "description": "LDAP search base"
+  },
+  {
+    "name": "security.ldap.pattern",
+    "type": "java.lang.String",
+    "description": "User search DN pattern"
+  }
+]}

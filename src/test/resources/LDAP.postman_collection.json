@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "4a25996f-ae34-427b-be9f-5a359bff2213",
+		"_postman_id": "580860fa-48dc-48eb-aa43-b09876de4e13",
 		"name": "LDAP",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -15,8 +15,14 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Unauthorized request\",()=>{\r",
-									"    pm.expect(pm.response.code).to.eql(401);\r",
+									"pm.test(\"Unauthorized request\", () => {\r",
+									"  pm.response.to.have.status(401);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"The response contains the error properties\", () => {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson.errors).to.have.lengthOf(1);\r",
+									"    pm.expect(responseJson.errors[0].message).to.eql('Unauthorized');\r",
 									"});"
 								],
 								"type": "text/javascript"
@@ -68,8 +74,13 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Authorized request\",()=>{\r",
-									"    pm.expect(pm.response.code).to.eql(200);\r",
+									"pm.test(\"Authorized request\", () => {\r",
+									"  pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"The response contains the data\", () => {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson).to.have.property('content');\r",
 									"});"
 								],
 								"type": "text/javascript"

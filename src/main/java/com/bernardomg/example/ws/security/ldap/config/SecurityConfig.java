@@ -30,7 +30,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.AuthenticationEntryPoint;
 
+import com.bernardomg.example.ws.security.ldap.security.entrypoint.ErrorResponseAuthenticationEntryPoint;
 import com.bernardomg.example.ws.security.ldap.security.property.LdapProperties;
 
 /**
@@ -46,6 +48,11 @@ public class SecurityConfig {
 
     public SecurityConfig() {
         super();
+    }
+
+    @Bean("authenticationEntryPoint")
+    public AuthenticationEntryPoint getAuthenticationEntryPoint() {
+        return new ErrorResponseAuthenticationEntryPoint();
     }
 
     @Bean("passwordEncoder")

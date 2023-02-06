@@ -22,32 +22,8 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.ws.security.ldap.config;
-
-import org.springframework.boot.actuate.audit.AuditEventRepository;
-import org.springframework.boot.actuate.audit.InMemoryAuditEventRepository;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-
 /**
- * Audit configuration.
- *
- * @author Bernardo Mart&iacute;nez Garrido
- *
+ * JWT entry points.
  */
-@Configuration
-public class AuditConfig {
 
-    /**
-     * Default constructor.
-     */
-    public AuditConfig() {
-        super();
-    }
-
-    @Bean("auditEventRepository")
-    public AuditEventRepository getAuditEventRepository() {
-        return new InMemoryAuditEventRepository();
-    }
-
-}
+package com.bernardomg.example.ws.security.ldap.security.entrypoint;

@@ -34,7 +34,9 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
 import org.springframework.security.config.annotation.web.configurers.FormLoginConfigurer;
 import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 
 import com.bernardomg.example.ws.security.ldap.security.property.LdapProperties;
@@ -49,11 +51,17 @@ import com.bernardomg.example.ws.security.ldap.security.property.LdapProperties;
 @EnableWebSecurity
 public class WebSecurityConfig {
 
+    /**
+     * Authentication entry point.
+     */
     @Autowired
-    private LdapProperties  ldapProperties;
+    private AuthenticationEntryPoint authenticationEntryPoint;
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    private LdapProperties           ldapProperties;
+
+    @Autowired
+    private PasswordEncoder          passwordEncoder;
 
     public WebSecurityConfig() {
         super();
@@ -79,12 +87,7 @@ public class WebSecurityConfig {
         final Customizer<LogoutConfigurer<HttpSecurity>>                                                    logoutCustomizer;
 
         // Authorization
-        authorizeRequestsCustomizer = c -> c.antMatchers("/actuator/**")
-            .permitAll()
-            .antMatchers("/login/**")
-            .permitAll()
-            .anyRequest()
-            .authenticated();
+        authorizeRequestsCustomizer = getAuthorizeRequestsCustomizer();
         // Login form
         formLoginCustomizer = c -> c.disable();
         // Logout
@@ -100,6 +103,27 @@ public class WebSecurityConfig {
             .httpBasic();
 
         return http.build();
+    }
+
+    private final Customizer<ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry>
+            getAuthorizeRequestsCustomizer() {
+        return c -> {
+            try {
+                c.antMatchers("/actuator/**")
+                    .permitAll()
+                    .anyRequest()
+                    .authenticated()
+                    .and()
+                    .exceptionHandling()
+                    .authenticationEntryPoint(authenticationEntryPoint)
+                    .and()
+                    .sessionManagement()
+                    .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+            } catch (final Exception e) {
+                // TODO Handle exception
+                throw new RuntimeException(e);
+            }
+        };
     }
 
 }

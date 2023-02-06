@@ -36,9 +36,9 @@ import org.springframework.security.config.annotation.web.configurers.FormLoginC
 import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 
+import com.bernardomg.example.spring.security.ws.ldap.security.entrypoint.ErrorResponseAuthenticationEntryPoint;
 import com.bernardomg.example.spring.security.ws.ldap.security.property.LdapProperties;
 
 /**
@@ -52,22 +52,16 @@ import com.bernardomg.example.spring.security.ws.ldap.security.property.LdapProp
 public class WebSecurityConfig {
 
     /**
-     * Authentication entry point.
-     */
-    @Autowired
-    private AuthenticationEntryPoint authenticationEntryPoint;
-
-    /**
      * LDAP configuration properties.
      */
     @Autowired
-    private LdapProperties           ldapProperties;
+    private LdapProperties  ldapProperties;
 
     /**
      * Password encoder for checking against encrypted passwords.
      */
     @Autowired
-    private PasswordEncoder          passwordEncoder;
+    private PasswordEncoder passwordEncoder;
 
     public WebSecurityConfig() {
         super();
@@ -128,7 +122,7 @@ public class WebSecurityConfig {
                     // Authentication error handling
                     .and()
                     .exceptionHandling()
-                    .authenticationEntryPoint(authenticationEntryPoint)
+                    .authenticationEntryPoint(new ErrorResponseAuthenticationEntryPoint())
                     // Stateless
                     .and()
                     .sessionManagement()

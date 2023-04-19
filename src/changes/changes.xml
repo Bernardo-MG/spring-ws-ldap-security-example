@@ -17,5 +17,10 @@
             Cleaned up code to make all the security examples more similar.
          </action>
       </release>
+      <release version="1.0.2" date="2023-04-19" description="Updated dependencies">
+         <action dev="bmg" type="update">
+            Updated dependencies.
+         </action>
+      </release>
    </body>
 </document>

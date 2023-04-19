@@ -21,7 +21,7 @@
 
    <groupId>com.bernardomg.example</groupId>
    <artifactId>spring-ws-ldap-security-example</artifactId>
-   <version>1.0.1</version>
+   <version>1.0.2</version>
    <packaging>war</packaging>
 
    <name>Spring WS LDAP Security Example</name>
@@ -123,12 +123,9 @@
       <!-- ============================================== -->
       <!-- =========== DEPENDENCIES VERSIONS ============ -->
       <!-- ============================================== -->
-      <h2.version>1.4.200</h2.version>
-      <hamcrest.version>2.2</hamcrest.version>
-      <hibernate.validator.version>5.4.3.Final</hibernate.validator.version>
-      <jackson.version>2.12.4</jackson.version>
-      <spring.boot.version>2.7.4</spring.boot.version>
-      <spring.version>5.3.23</spring.version>
+      <spring.boot.version>3.0.5</spring.boot.version>
+      <spring.version>6.0.8</spring.version>
+      <micrometer.version>1.10.6</micrometer.version>
       <!-- ============================================== -->
       <!-- ============== PLUGINS VERSIONS ============== -->
       <!-- ============================================== -->
@@ -141,7 +138,7 @@
       <!-- ============================================== -->
       <!-- ================= MAVEN SITE ================= -->
       <!-- ============================================== -->
-      <site.skin.version>2.3.0</site.skin.version>
+      <site.skin.version>2.3.2</site.skin.version>
    </properties>
 
    <!-- ********************************************** -->
@@ -163,14 +160,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-dependencies</artifactId>
             <version>${spring.boot.version}</version>
-            <type>pom</type>
-            <scope>import</scope>
-         </dependency>
-         <dependency>
-            <!-- Jackson BOM -->
-            <groupId>com.fasterxml.jackson</groupId>
-            <artifactId>jackson-bom</artifactId>
-            <version>${jackson.version}</version>
             <type>pom</type>
             <scope>import</scope>
          </dependency>
@@ -312,27 +301,16 @@
       <!-- ============================================== -->
       <dependency>
          <!-- JPA API -->
-         <groupId>javax.persistence</groupId>
-         <artifactId>javax.persistence-api</artifactId>
+         <groupId>jakarta.persistence</groupId>
+         <artifactId>jakarta.persistence-api</artifactId>
       </dependency>
       <!-- ============================================== -->
       <!-- ================ HIBERNATE =================== -->
       <!-- ============================================== -->
       <dependency>
          <!-- Hibernate Core -->
-         <groupId>org.hibernate</groupId>
+         <groupId>org.hibernate.orm</groupId>
          <artifactId>hibernate-core</artifactId>
-      </dependency>
-      <dependency>
-         <!-- Hibernate Ehcache -->
-         <groupId>org.hibernate</groupId>
-         <artifactId>hibernate-ehcache</artifactId>
-      </dependency>
-      <dependency>
-         <!-- Hibernate validator -->
-         <groupId>org.hibernate</groupId>
-         <artifactId>hibernate-validator</artifactId>
-         <version>${hibernate.validator.version}</version>
       </dependency>
       <dependency>
          <!-- Hikari CP -->
@@ -352,6 +330,21 @@
          <!-- H2 database -->
          <groupId>com.h2database</groupId>
          <artifactId>h2</artifactId>
+      </dependency>
+      <!-- ============================================== -->
+      <!-- ========== DEPENDENCY CONVERGENCE ============ -->
+      <!-- ============================================== -->
+      <dependency>
+         <!-- Micrometer Commons -->
+         <groupId>io.micrometer</groupId>
+         <artifactId>micrometer-commons</artifactId>
+         <version>${micrometer.version}</version>
+      </dependency>
+      <dependency>
+         <!-- Micrometer Observation -->
+         <groupId>io.micrometer</groupId>
+         <artifactId>micrometer-observation</artifactId>
+         <version>${micrometer.version}</version>
       </dependency>
       <!-- ============================================== -->
       <!-- ================ LIQUIBASE =================== -->

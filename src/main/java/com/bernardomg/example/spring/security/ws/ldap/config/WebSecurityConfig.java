@@ -31,7 +31,7 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
+import org.springframework.security.config.annotation.web.configurers.AuthorizeHttpRequestsConfigurer;
 import org.springframework.security.config.annotation.web.configurers.FormLoginConfigurer;
 import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -83,9 +83,9 @@ public class WebSecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(final HttpSecurity http) throws Exception {
-        final Customizer<ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry> authorizeRequestsCustomizer;
-        final Customizer<FormLoginConfigurer<HttpSecurity>>                                                 formLoginCustomizer;
-        final Customizer<LogoutConfigurer<HttpSecurity>>                                                    logoutCustomizer;
+        final Customizer<AuthorizeHttpRequestsConfigurer<HttpSecurity>.AuthorizationManagerRequestMatcherRegistry> authorizeRequestsCustomizer;
+        final Customizer<FormLoginConfigurer<HttpSecurity>>                                                        formLoginCustomizer;
+        final Customizer<LogoutConfigurer<HttpSecurity>>                                                           logoutCustomizer;
 
         // Authorization
         authorizeRequestsCustomizer = getAuthorizeRequestsCustomizer();
@@ -98,7 +98,7 @@ public class WebSecurityConfig {
             .disable()
             .cors()
             .and()
-            .authorizeRequests(authorizeRequestsCustomizer)
+            .authorizeHttpRequests(authorizeRequestsCustomizer)
             .formLogin(formLoginCustomizer)
             .logout(logoutCustomizer)
             .httpBasic();
@@ -111,11 +111,11 @@ public class WebSecurityConfig {
      *
      * @return the request authorisation configuration
      */
-    private final Customizer<ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry>
+    private final Customizer<AuthorizeHttpRequestsConfigurer<HttpSecurity>.AuthorizationManagerRequestMatcherRegistry>
             getAuthorizeRequestsCustomizer() {
         return c -> {
             try {
-                c.antMatchers("/actuator/**")
+                c.requestMatchers("/actuator/**")
                     .permitAll()
                     .anyRequest()
                     .authenticated()

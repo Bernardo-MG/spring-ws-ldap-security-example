@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "580860fa-48dc-48eb-aa43-b09876de4e13",
+		"_postman_id": "16f8e43a-30f1-4811-947a-8ab4ebba8156",
 		"name": "LDAP",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -43,6 +43,7 @@
 					"response": []
 				}
 			],
+			"description": "Unauthorized requests. These are using no authentication.",
 			"event": [
 				{
 					"listen": "prerequest",
@@ -101,6 +102,7 @@
 					"response": []
 				}
 			],
+			"description": "Authorized requests. These check the server handles the authorization scheme.",
 			"auth": {
 				"type": "basic",
 				"basic": [

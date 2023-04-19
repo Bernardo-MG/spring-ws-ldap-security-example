@@ -7,7 +7,7 @@ Example for setting up LDAP Security on a web service with Spring Boot.
 The project requires an authorization server. The Docker compose file will take care of this, while running the project:
 
 ```
-docker-compose -f docker/docker-compose.yml up
+docker-compose -f docker/docker-compose.yml --project-name spring-ws-ldap-security-example up
 ```
 
 And the web service be available at [http://localhost:8080/](http://localhost:8080/).

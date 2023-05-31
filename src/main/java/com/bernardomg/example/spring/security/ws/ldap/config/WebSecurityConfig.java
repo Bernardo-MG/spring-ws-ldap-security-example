@@ -24,20 +24,19 @@
 
 package com.bernardomg.example.spring.security.ws.ldap.config;
 
+import java.util.Arrays;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.AuthorizeHttpRequestsConfigurer;
-import org.springframework.security.config.annotation.web.configurers.FormLoginConfigurer;
-import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+import com.bernardomg.example.spring.security.ws.ldap.security.configuration.WhitelistRequestCustomizer;
 import com.bernardomg.example.spring.security.ws.ldap.security.entrypoint.ErrorResponseAuthenticationEntryPoint;
 import com.bernardomg.example.spring.security.ws.ldap.security.property.LdapProperties;
 
@@ -83,55 +82,21 @@ public class WebSecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(final HttpSecurity http) throws Exception {
-        final Customizer<AuthorizeHttpRequestsConfigurer<HttpSecurity>.AuthorizationManagerRequestMatcherRegistry> authorizeRequestsCustomizer;
-        final Customizer<FormLoginConfigurer<HttpSecurity>>                                                        formLoginCustomizer;
-        final Customizer<LogoutConfigurer<HttpSecurity>>                                                           logoutCustomizer;
-
-        // Authorization
-        authorizeRequestsCustomizer = getAuthorizeRequestsCustomizer();
-        // Login form
-        formLoginCustomizer = c -> c.disable();
-        // Logout
-        logoutCustomizer = c -> c.disable();
-
-        http.csrf()
-            .disable()
-            .cors()
-            .and()
-            .authorizeHttpRequests(authorizeRequestsCustomizer)
-            .formLogin(formLoginCustomizer)
-            .logout(logoutCustomizer)
-            .httpBasic();
+        http
+            // Whitelist access
+            .authorizeHttpRequests(new WhitelistRequestCustomizer(Arrays.asList("/actuator/**")))
+            .csrf(csrf -> csrf.disable())
+            .cors(cors -> {})
+            // Authentication error handling
+            .exceptionHandling(handler -> handler.authenticationEntryPoint(new ErrorResponseAuthenticationEntryPoint()))
+            // Stateless
+            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+            // Disable login and logout forms
+            .formLogin(c -> c.disable())
+            .logout(c -> c.disable())
+            .httpBasic(c -> {});
 
         return http.build();
-    }
-
-    /**
-     * Returns the request authorisation configuration.
-     *
-     * @return the request authorisation configuration
-     */
-    private final Customizer<AuthorizeHttpRequestsConfigurer<HttpSecurity>.AuthorizationManagerRequestMatcherRegistry>
-            getAuthorizeRequestsCustomizer() {
-        return c -> {
-            try {
-                c.requestMatchers("/actuator/**")
-                    .permitAll()
-                    .anyRequest()
-                    .authenticated()
-                    // Authentication error handling
-                    .and()
-                    .exceptionHandling()
-                    .authenticationEntryPoint(new ErrorResponseAuthenticationEntryPoint())
-                    // Stateless
-                    .and()
-                    .sessionManagement()
-                    .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-            } catch (final Exception e) {
-                // TODO Handle exception
-                throw new RuntimeException(e);
-            }
-        };
     }
 
 }

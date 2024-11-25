@@ -17,7 +17,7 @@ services:
     networks:
       - auth
   ldap-auth-server-seed:
-    image: osixia/openldap:1.1.11
+    image: osixia/openldap:1.5.0
     volumes:
       - ./imports:/ldif_files
     entrypoint: '/ldif_files/importData.sh'

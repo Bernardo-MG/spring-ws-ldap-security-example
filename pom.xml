@@ -45,17 +45,17 @@
       <connection>scm:git:https://github.com/bernardo-mg/spring-ws-ldap-security-example.git</connection>
       <developerConnection>scm:git:https://github.com/bernardo-mg/spring-ws-ldap-security-example.git</developerConnection>
       <tag>head</tag>
-      <url>https://www.github.com/bernardo-mg/spring-ws-ldap-security-example</url>
+      <url>https://github.com/bernardo-mg/spring-ws-ldap-security-example</url>
    </scm>
 
    <issueManagement>
       <system>GitHub</system>
-      <url>https://www.github.com/bernardo-mg/spring-ws-ldap-security-example/issues</url>
+      <url>https://github.com/bernardo-mg/spring-ws-ldap-security-example/issues</url>
    </issueManagement>
 
    <ciManagement>
       <system>Github</system>
-      <url>https://www.github.com/bernardo-mg/spring-ws-ldap-security-example/actions</url>
+      <url>https://github.com/bernardo-mg/spring-ws-ldap-security-example/actions</url>
       <notifiers />
    </ciManagement>
 

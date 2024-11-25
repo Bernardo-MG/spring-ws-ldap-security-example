@@ -31,7 +31,7 @@ services:
       - "8080:8080"
       - "8000:8000"
     depends_on:
-      - auth-server
+      - ldap-auth-server
     healthcheck:
       test: "wget -T5 -qO- http://localhost:8080/actuator/health | grep UP || exit 1"
       interval: 2s
@@ -40,7 +40,7 @@ services:
       start_period: 60s
     environment:
       # LDAP
-      - security.ldap.url=ldap://auth-server:1389/dc=bernardomg,dc=com
+      - security.ldap.url=ldap://ldap-auth-server:1389/dc=bernardomg,dc=com
       - security.ldap.base=ou=groups
       - security.ldap.pattern=uid={0},ou=people
     networks:

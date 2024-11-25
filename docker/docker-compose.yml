@@ -1,7 +1,7 @@
 version: '3'
 services:
     auth-server:
-        image: bitnami/openldap:2.5.13
+        image: bitnami/openldap:2.6.8
         container_name: ldap-auth-server
         volumes:
           - ./imports:/ldifs

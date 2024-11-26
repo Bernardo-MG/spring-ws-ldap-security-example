@@ -27,6 +27,10 @@
          <AppenderRef ref="console" />
          <AppenderRef ref="file" />
       </Logger>
+      <Logger name="org.springframework.ldap" level="debug" additivity="false">
+         <AppenderRef ref="console" />
+         <AppenderRef ref="file" />
+      </Logger>
 
       <Root level="error">
          <AppenderRef ref="console" />

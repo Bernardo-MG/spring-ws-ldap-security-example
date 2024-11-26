@@ -16,6 +16,7 @@ spring:
   # AOP
   aop:
     proxy-target-class: false
+    
 
 # Management
 management:
@@ -23,9 +24,7 @@ management:
     web:
       exposure:
         include: health,auditevents
-    enabled-by-default: false
-    auditevents:
-      enabled: true
   endpoint:
     health:
-      enabled: true
+      show-details: always
+      sensitive: false

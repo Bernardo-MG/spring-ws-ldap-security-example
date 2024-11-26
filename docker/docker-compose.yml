@@ -6,6 +6,7 @@ services:
     volumes:
       - ./imports:/ldifs
     ports:
+      - "389:389"
       - "1389:1389"
       - "1636:1636"
     environment:
@@ -14,13 +15,6 @@ services:
       LDAP_GROUP: "people"
       LDAP_ADMIN_PASSWORD: "admin"
       LDAP_CONFIG_ADMIN_PASSWORD: "admin"
-    networks:
-      - auth
-  ldap-auth-server-seed:
-    image: osixia/openldap:1.5.0
-    volumes:
-      - ./imports:/ldif_files
-    entrypoint: '/ldif_files/importData.sh'
     networks:
       - auth
   ldap-ws:
@@ -43,6 +37,10 @@ services:
       - security.ldap.url=ldap://ldap-auth-server:1389/dc=bernardomg,dc=com
       - security.ldap.base=ou=groups
       - security.ldap.pattern=uid={0},ou=people
+      - spring.ldap.urls=ldap://ldap-auth-server:1389
+      - spring.ldap.base=ou=groups
+      - spring.ldap.username=uid=admin,ou=people,dc=bernardomg,dc=com
+      - spring.ldap.password=admin
     networks:
       - auth
 networks:

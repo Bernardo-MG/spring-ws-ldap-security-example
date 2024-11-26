@@ -40,6 +40,8 @@ import com.bernardomg.example.spring.security.ws.ldap.security.configuration.Whi
 import com.bernardomg.example.spring.security.ws.ldap.security.entrypoint.ErrorResponseAuthenticationEntryPoint;
 import com.bernardomg.example.spring.security.ws.ldap.security.property.LdapProperties;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * Web security configuration.
  *
@@ -48,6 +50,7 @@ import com.bernardomg.example.spring.security.ws.ldap.security.property.LdapProp
  */
 @Configuration
 @EnableWebSecurity
+@Slf4j
 public class WebSecurityConfig {
 
     /**
@@ -66,19 +69,21 @@ public class WebSecurityConfig {
         super();
     }
 
-    @Autowired
-    public void configure(final AuthenticationManagerBuilder auth) throws Exception {
-        auth.ldapAuthentication()
-            .userDnPatterns(ldapProperties.getPattern())
-            .groupSearchBase(ldapProperties.getBase())
-            .contextSource()
-            .url(ldapProperties.getUrl())
-            // Check against encrypted password
-            .and()
-            .passwordCompare()
-            .passwordEncoder(passwordEncoder)
-            .passwordAttribute("userPassword");
-    }
+//    @Autowired
+//    public void configure(final AuthenticationManagerBuilder auth) throws Exception {
+//        log.info("Connecting to LDAP at {}. Pattern {} and search base {}", ldapProperties.getUrl(),
+//            ldapProperties.getPattern(), ldapProperties.getBase());
+//        auth.ldapAuthentication()
+//            .userDnPatterns(ldapProperties.getPattern())
+//            .groupSearchBase(ldapProperties.getBase())
+//            .contextSource()
+//            .url(ldapProperties.getUrl())
+//            // Check against encrypted password
+//            .and()
+//            .passwordCompare()
+//            .passwordEncoder(passwordEncoder)
+//            .passwordAttribute("userPassword");
+//    }
 
     @Bean
     public SecurityFilterChain filterChain(final HttpSecurity http) throws Exception {

@@ -33,7 +33,6 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 import com.bernardomg.example.spring.security.ws.ldap.security.configuration.WhitelistRequestCustomizer;
@@ -57,13 +56,13 @@ public class WebSecurityConfig {
      * LDAP configuration properties.
      */
     @Autowired
-    private LdapProperties  ldapProperties;
+    private LdapProperties ldapProperties;
 
     /**
      * Password encoder for checking against encrypted passwords.
      */
-//    @Autowired
-//    private PasswordEncoder passwordEncoder;
+    // @Autowired
+    // private PasswordEncoder passwordEncoder;
 
     public WebSecurityConfig() {
         super();
@@ -81,7 +80,7 @@ public class WebSecurityConfig {
             // Check against encrypted password
             .and()
             .passwordCompare()
-//            .passwordEncoder(passwordEncoder)
+            // .passwordEncoder(passwordEncoder)
             .passwordAttribute("userPassword");
     }
 

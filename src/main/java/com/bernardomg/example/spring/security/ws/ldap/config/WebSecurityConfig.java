@@ -40,6 +40,8 @@ import com.bernardomg.example.spring.security.ws.ldap.security.configuration.Whi
 import com.bernardomg.example.spring.security.ws.ldap.security.entrypoint.ErrorResponseAuthenticationEntryPoint;
 import com.bernardomg.example.spring.security.ws.ldap.security.property.LdapProperties;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * Web security configuration.
  *
@@ -48,6 +50,7 @@ import com.bernardomg.example.spring.security.ws.ldap.security.property.LdapProp
  */
 @Configuration
 @EnableWebSecurity
+@Slf4j
 public class WebSecurityConfig {
 
     /**
@@ -59,8 +62,8 @@ public class WebSecurityConfig {
     /**
      * Password encoder for checking against encrypted passwords.
      */
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+//    @Autowired
+//    private PasswordEncoder passwordEncoder;
 
     public WebSecurityConfig() {
         super();
@@ -68,6 +71,8 @@ public class WebSecurityConfig {
 
     @Autowired
     public void configure(final AuthenticationManagerBuilder auth) throws Exception {
+        log.info("Connecting to LDAP at {}. Pattern {} and search base {}", ldapProperties.getUrl(),
+            ldapProperties.getPattern(), ldapProperties.getBase());
         auth.ldapAuthentication()
             .userDnPatterns(ldapProperties.getPattern())
             .groupSearchBase(ldapProperties.getBase())
@@ -76,7 +81,7 @@ public class WebSecurityConfig {
             // Check against encrypted password
             .and()
             .passwordCompare()
-            .passwordEncoder(passwordEncoder)
+//            .passwordEncoder(passwordEncoder)
             .passwordAttribute("userPassword");
     }
 

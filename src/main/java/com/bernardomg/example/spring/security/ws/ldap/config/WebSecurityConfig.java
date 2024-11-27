@@ -69,21 +69,21 @@ public class WebSecurityConfig {
         super();
     }
 
-//    @Autowired
-//    public void configure(final AuthenticationManagerBuilder auth) throws Exception {
-//        log.info("Connecting to LDAP at {}. Pattern {} and search base {}", ldapProperties.getUrl(),
-//            ldapProperties.getPattern(), ldapProperties.getBase());
-//        auth.ldapAuthentication()
-//            .userDnPatterns(ldapProperties.getPattern())
-//            .groupSearchBase(ldapProperties.getBase())
-//            .contextSource()
-//            .url(ldapProperties.getUrl())
-//            // Check against encrypted password
-//            .and()
-//            .passwordCompare()
+    @Autowired
+    public void configure(final AuthenticationManagerBuilder auth) throws Exception {
+        log.info("Connecting to LDAP at {}. Pattern {} and search base {}", ldapProperties.getUrl(),
+            ldapProperties.getPattern(), ldapProperties.getBase());
+        auth.ldapAuthentication()
+            .userDnPatterns(ldapProperties.getPattern())
+            .groupSearchBase(ldapProperties.getBase())
+            .contextSource()
+            .url(ldapProperties.getUrl())
+            // Check against encrypted password
+            .and()
+            .passwordCompare()
 //            .passwordEncoder(passwordEncoder)
-//            .passwordAttribute("userPassword");
-//    }
+            .passwordAttribute("userPassword");
+    }
 
     @Bean
     public SecurityFilterChain filterChain(final HttpSecurity http) throws Exception {

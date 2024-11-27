@@ -62,8 +62,8 @@ public class WebSecurityConfig {
     /**
      * Password encoder for checking against encrypted passwords.
      */
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+//    @Autowired
+//    private PasswordEncoder passwordEncoder;
 
     public WebSecurityConfig() {
         super();

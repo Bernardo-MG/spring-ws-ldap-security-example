@@ -15,6 +15,7 @@ services:
       LDAP_GROUP: "people"
       LDAP_ADMIN_PASSWORD: "admin"
       LDAP_CONFIG_ADMIN_PASSWORD: "admin"
+      LDAP_PORT_NUMBER: 389
     networks:
       - auth
   ldap-ws:
@@ -34,12 +35,15 @@ services:
       start_period: 60s
     environment:
       # LDAP
-      - security.ldap.url=ldap://ldap-auth-server:1389/dc=bernardomg,dc=com
+      - security.ldap.url=ldap://ldap-auth-server:389/dc=bernardomg,dc=com
       - security.ldap.base=ou=groups
       - security.ldap.pattern=uid={0},ou=people
-      - spring.ldap.urls=ldap://ldap-auth-server:1389
-      - spring.ldap.username=uid=admin,ou=people,dc=bernardomg,dc=com
-      - spring.ldap.password=admin
+      - spring.ldap.urls=ldap://ldap-auth-server:389
+      - spring.ldap.username=uid=bmg,ou=people,dc=bernardomg,dc=com
+      - spring.ldap.password=1234
+      - spring.security.ldap.base=ou=people,dc=bernardomg,dc=com
+      - spring.security.ldap.user-dn-pattern=uid={0},ou=people
+      - spring.security.ldap.password-attribute=1234
     networks:
       - auth
 networks:

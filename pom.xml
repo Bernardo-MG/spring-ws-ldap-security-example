@@ -226,14 +226,6 @@
          <artifactId>spring-security-ldap</artifactId>
       </dependency>
       <!-- ============================================== -->
-      <!-- =================== LDAP ===================== -->
-      <!-- ============================================== -->
-      <dependency>
-        <!-- Unboundid LDAP SDK -->
-        <groupId>com.unboundid</groupId>
-        <artifactId>unboundid-ldapsdk</artifactId>
-      </dependency>
-      <!-- ============================================== -->
       <!-- =============== SPRING BOOT ================== -->
       <!-- ============================================== -->
       <dependency>

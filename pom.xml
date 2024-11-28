@@ -302,6 +302,11 @@
          <artifactId>spring-boot-starter-data-ldap</artifactId>
       </dependency>
       <dependency>
+         <!-- Spring Boot Starter: LDAP -->
+         <groupId>org.springframework.boot</groupId>
+         <artifactId>spring-boot-starter-data-ldap</artifactId>
+      </dependency>
+      <dependency>
          <!-- Spring Boot Starter: Devtools -->
          <groupId>org.springframework.boot</groupId>
          <artifactId>spring-boot-devtools</artifactId>

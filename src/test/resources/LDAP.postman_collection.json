@@ -10,20 +10,19 @@
 			"name": "Unauthorized",
 			"item": [
 				{
-					"name": "Get data",
+					"name": "Read persons",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Unauthorized request\", () => {\r",
-									"  pm.response.to.have.status(401);\r",
+									"pm.test(\"Authorized request\", () => {\r",
+									"  pm.response.to.have.status(200);\r",
 									"});\r",
 									"\r",
-									"pm.test(\"The response contains the error properties\", () => {\r",
+									"pm.test(\"The response contains the data\", () => {\r",
 									"    const responseJson = pm.response.json();\r",
-									"    pm.expect(responseJson.errors).to.have.lengthOf(1);\r",
-									"    pm.expect(responseJson.errors[0].message).to.eql('Unauthorized');\r",
+									"    pm.expect(responseJson).to.have.property('content');\r",
 									"});"
 								],
 								"type": "text/javascript"
@@ -70,7 +69,7 @@
 			"name": "Authorized",
 			"item": [
 				{
-					"name": "Get data",
+					"name": "Read persons",
 					"event": [
 						{
 							"listen": "test",

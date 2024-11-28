@@ -1,7 +1,7 @@
 /**
  * The MIT License (MIT)
  * <p>
- * Copyright (c) 2021 the original author or authors.
+ * Copyright (c) 2023 the original author or authors.
  * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,11 +21,38 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-/**
- * Repositories.
- * <p>
- * Similar to a DAO, a repository is a pattern which allows handling the persistence layer as if it was a collection,
- * where entities are stored and read from.
- */
 
-package com.bernardomg.example.spring.security.ws.ldap.domain.entity.persistence.repository;
+package com.bernardomg.example.spring.security.ws.ldap.person.adapter.outbound.rest.controller;
+
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.bernardomg.example.spring.security.ws.ldap.person.domain.model.Person;
+import com.bernardomg.example.spring.security.ws.ldap.person.usecase.service.PersonService;
+
+import lombok.AllArgsConstructor;
+
+/**
+ * Person REST controller.
+ *
+ * @author Bernardo Mart&iacute;nez Garrido
+ *
+ */
+@RestController
+@RequestMapping("/rest/person")
+@AllArgsConstructor
+public class PersonController {
+
+    /**
+     * Person service.
+     */
+    private final PersonService service;
+
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public Iterable<Person> readAll() {
+        return service.getAll();
+    }
+
+}

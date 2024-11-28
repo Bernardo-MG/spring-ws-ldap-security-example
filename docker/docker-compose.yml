@@ -39,6 +39,7 @@ services:
       - security.ldap.base=ou=groups
       - security.ldap.pattern=uid={0},ou=people
       - spring.ldap.urls=ldap://ldap-auth-server:389
+      - spring.ldap.base=dc=bernardomg,dc=com
       - spring.ldap.username=uid=bmg,ou=people,dc=bernardomg,dc=com
       - spring.ldap.password=1234
       - spring.security.ldap.base=ou=people,dc=bernardomg,dc=com

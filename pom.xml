@@ -208,34 +208,14 @@
          <artifactId>spring-core</artifactId>
       </dependency>
       <dependency>
-         <!-- Spring JDBC -->
-         <groupId>org.springframework</groupId>
-         <artifactId>spring-jdbc</artifactId>
-      </dependency>
-      <dependency>
-         <!-- Spring Data JPA -->
-         <groupId>org.springframework.data</groupId>
-         <artifactId>spring-data-jpa</artifactId>
-      </dependency>
-      <dependency>
          <!-- Spring OXM -->
          <groupId>org.springframework</groupId>
          <artifactId>spring-oxm</artifactId>
       </dependency>
       <dependency>
-         <!-- Spring transactions -->
-         <groupId>org.springframework</groupId>
-         <artifactId>spring-tx</artifactId>
-      </dependency>
-      <dependency>
          <!-- Spring Web -->
          <groupId>org.springframework</groupId>
          <artifactId>spring-web</artifactId>
-      </dependency>
-      <dependency>
-         <!-- Spring ORM -->
-         <groupId>org.springframework</groupId>
-         <artifactId>spring-orm</artifactId>
       </dependency>
       <!-- ============================================== -->
       <!-- ============= SPRING SECURITY ================ -->
@@ -313,55 +293,6 @@
          <groupId>org.springframework.boot</groupId>
          <artifactId>spring-boot-configuration-processor</artifactId>
          <optional>true</optional>
-      </dependency>
-      <!-- ============================================== -->
-      <!-- ============== JPA DEPENDENCIES ============== -->
-      <!-- ============================================== -->
-      <dependency>
-         <!-- JPA API -->
-         <groupId>jakarta.persistence</groupId>
-         <artifactId>jakarta.persistence-api</artifactId>
-      </dependency>
-      <!-- ============================================== -->
-      <!-- ================ HIBERNATE =================== -->
-      <!-- ============================================== -->
-      <dependency>
-         <!-- Hibernate Core -->
-         <groupId>org.hibernate.orm</groupId>
-         <artifactId>hibernate-core</artifactId>
-      </dependency>
-      <dependency>
-         <!-- Hikari CP -->
-         <groupId>com.zaxxer</groupId>
-         <artifactId>HikariCP</artifactId>
-         <exclusions>
-            <exclusion>
-               <groupId>org.slf4j</groupId>
-               <artifactId>slf4j-api</artifactId>
-            </exclusion>
-         </exclusions>
-      </dependency>
-      <!-- ============================================== -->
-      <!-- ==================== H2 ====================== -->
-      <!-- ============================================== -->
-      <dependency>
-         <!-- H2 database -->
-         <groupId>com.h2database</groupId>
-         <artifactId>h2</artifactId>
-      </dependency>
-      <!-- ============================================== -->
-      <!-- ================ LIQUIBASE =================== -->
-      <!-- ============================================== -->
-      <dependency>
-         <!-- Liquibase -->
-         <groupId>org.liquibase</groupId>
-         <artifactId>liquibase-core</artifactId>
-         <exclusions>
-            <exclusion>
-               <groupId>ch.qos.logback</groupId>
-               <artifactId>logback-classic</artifactId>
-            </exclusion>
-         </exclusions>
       </dependency>
       <!-- ============================================== -->
       <!-- ================== LOMBOK ==================== -->

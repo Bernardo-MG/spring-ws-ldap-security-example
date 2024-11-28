@@ -1,7 +1,7 @@
 /**
  * The MIT License (MIT)
  * <p>
- * Copyright (c) 2022-2023 the original author or authors.
+ * Copyright (c) 2022-2024 the original author or authors.
  * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,7 +23,7 @@
  */
 
 /**
- * Response controller advices.
+ * Security configuration.
  */
 
-package com.bernardomg.example.spring.security.ws.ldap.mvc.response.controller;
+package com.bernardomg.example.spring.security.ws.ldap.security.configuration;

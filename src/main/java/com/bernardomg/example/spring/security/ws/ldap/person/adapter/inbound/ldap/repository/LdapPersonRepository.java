@@ -42,10 +42,13 @@ public final class LdapPersonRepository implements PersonRepository {
             .is("person");
 
         persons = ldapTemplate.search(query, (final Attributes attrs) -> {
-            // Extract the "cn" attribute
-            final String cn = (String) attrs.get("cn")
+            final String id      = (String) attrs.get("uid")
                 .get();
-            return new Person(cn);
+            final String name    = (String) attrs.get("cn")
+                .get();
+            final String surname = (String) attrs.get("sn")
+                .get();
+            return new Person(id, name, surname);
         });
 
         log.debug("Found all the persons: {}", persons);

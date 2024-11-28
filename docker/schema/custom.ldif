@@ -14,15 +14,15 @@ objectclass: top
 objectclass: organizationalUnit
 ou: people
 
-dn: uid=admin,ou=people,dc=bernardomg,dc=com
+dn: uid=bmg,ou=people,dc=bernardomg,dc=com
 objectclass: top
 objectclass: person
 objectclass: organizationalPerson
 objectclass: inetOrgPerson
 cn: Name
 sn: Surname
-uid: admin
-userPassword: $2a$04$gV.k/KKIqr3oPySzs..bx.8absYRTpNe8AbHmPP90.ErW0ICGOsVW
+uid: bmg
+userPassword: 1234
 
 dn: cn=testUsers,ou=groups,dc=bernardomg,dc=com
 objectclass: top

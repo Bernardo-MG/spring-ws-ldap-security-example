@@ -1,0 +1,30 @@
+###############################################################################
+#                             APPLICATION CONFIG                              #
+###############################################################################
+
+# Development options
+# debug: true
+
+# LDAP
+security:
+  ldap:
+    url:
+    base:
+    pattern:
+
+spring:
+  # AOP
+  aop:
+    proxy-target-class: false
+    
+
+# Management
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,auditevents
+  endpoint:
+    health:
+      show-details: always
+      sensitive: false

@@ -1,38 +1,50 @@
 version: '3'
 services:
-    auth-server:
-        image: bitnami/openldap:2.5.13
-        container_name: ldap-auth-server
-        volumes:
-          - ./imports:/ldifs
-        ports:
-            - "1389:1389"
-            - "1636:1636"
-        environment:
-            LDAP_ROOT: "dc=bernardomg,dc=com"
-            LDAP_USER_DC: "bernardomg"
-            LDAP_GROUP: "people"
-            LDAP_ADMIN_PASSWORD: "admin"
-            LDAP_CONFIG_ADMIN_PASSWORD: "admin"
-    auth-server-seed:
-        image: osixia/openldap:1.1.11
-        volumes:
-            - ./imports:/ldif_files
-        links:
-            - auth-server
-        entrypoint: '/ldif_files/importData.sh'
-    ws:
-        depends_on:
-            - auth-server
-        build:
-            context: ../
-            dockerfile: ./docker/Dockerfile
-        container_name: ldap-ws
-        ports:
-            - "8080:8080"
-            - "8000:8000"
-        environment:
-            # LDAP
-            - security.ldap.url=ldap://auth-server:1389/dc=bernardomg,dc=com
-            - security.ldap.base=ou=groups
-            - security.ldap.pattern=uid={0},ou=people
+  ldap-auth-server:
+    image: bitnami/openldap:2.6.8
+    container_name: ldap-auth-server
+    volumes:
+      - ./schema:/ldifs
+    ports:
+      - "389:389"
+      - "1389:1389"
+      - "1636:1636"
+    environment:
+      LDAP_ROOT: "dc=bernardomg,dc=com"
+      LDAP_USER_DC: "bernardomg"
+      LDAP_GROUP: "people"
+      LDAP_ADMIN_PASSWORD: "admin"
+      LDAP_CONFIG_ADMIN_PASSWORD: "admin"
+      LDAP_PORT_NUMBER: 389
+    networks:
+      - auth
+  ldap-ws:
+    build:
+      context: ../
+      dockerfile: ./docker/Dockerfile
+    ports:
+      - "8080:8080"
+      - "8000:8000"
+    depends_on:
+      - ldap-auth-server
+    healthcheck:
+      test: "wget -T5 -qO- http://localhost:8080/actuator/health | grep UP || exit 1"
+      interval: 2s
+      timeout: 3s
+      retries: 5
+      start_period: 60s
+    environment:
+      # LDAP
+      - security.ldap.url=ldap://ldap-auth-server:389/dc=bernardomg,dc=com
+      - security.ldap.base=ou=groups
+      - security.ldap.pattern=uid={0},ou=people
+      - spring.ldap.urls=ldap://ldap-auth-server:389
+      - spring.ldap.username=uid=bmg,ou=people,dc=bernardomg,dc=com
+      - spring.ldap.password=1234
+      - spring.security.ldap.base=ou=people,dc=bernardomg,dc=com
+      - spring.security.ldap.user-dn-pattern=uid={0},ou=people
+      - spring.security.ldap.password-attribute=1234
+    networks:
+      - auth
+networks:
+  auth:

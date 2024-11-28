@@ -22,35 +22,49 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.spring.security.ws.ldap;
+package com.bernardomg.example.spring.security.ws.ldap.security.configuration;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import java.util.Collection;
+import java.util.Objects;
+
+import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configurers.AuthorizeHttpRequestsConfigurer;
 
 /**
- * Application runnable class. This allows Spring Boot to run the application.
+ * White list request access configuration. Allows unauthorized access to the routes in the white list. Any other route
+ * requires authorization.
  *
  * @author Bernardo Mart&iacute;nez Garrido
  *
  */
-@SpringBootApplication
-public class Application {
+public final class WhitelistRequestCustomizer implements
+        Customizer<AuthorizeHttpRequestsConfigurer<HttpSecurity>.AuthorizationManagerRequestMatcherRegistry> {
 
     /**
-     * Runnable main method.
-     *
-     * @param args
-     *            execution parameters
+     * White list with the routes which doesn't require authorization.
      */
-    public static void main(final String[] args) {
-        SpringApplication.run(Application.class, args);
-    }
+    private final Collection<String> whitelist;
 
     /**
      * Default constructor.
+     *
+     * @param list
+     *            white list
      */
-    public Application() {
+    public WhitelistRequestCustomizer(final Collection<String> list) {
         super();
+
+        whitelist = Objects.requireNonNull(list);
+    }
+
+    @Override
+    public final void customize(
+            final AuthorizeHttpRequestsConfigurer<HttpSecurity>.AuthorizationManagerRequestMatcherRegistry c) {
+        c.requestMatchers(whitelist.toArray(new String[whitelist.size()]))
+            .permitAll()
+            .anyRequest()
+            .authenticated();
     }
 
 }

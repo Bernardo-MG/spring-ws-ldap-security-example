@@ -10,7 +10,6 @@ import org.springframework.ldap.core.LdapTemplate;
 import org.springframework.ldap.query.LdapQuery;
 import org.springframework.ldap.query.LdapQueryBuilder;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.bernardomg.example.spring.security.ws.ldap.person.domain.model.Person;
 import com.bernardomg.example.spring.security.ws.ldap.person.domain.repository.PersonRepository;
@@ -19,7 +18,6 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Repository
-@Transactional
 public final class LdapPersonRepository implements PersonRepository {
 
     private final LdapTemplate ldapTemplate;

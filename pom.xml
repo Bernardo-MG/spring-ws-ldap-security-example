@@ -117,6 +117,10 @@
 
    <properties>
       <!-- ============================================== -->
+      <!-- ================ JAVA VERSION ================ -->
+      <!-- ============================================== -->
+      <java.version>21</java.version>
+      <!-- ============================================== -->
       <!-- =============== MANIFEST DATA ================ -->
       <!-- ============================================== -->
       <manifest.name>com/bernardomg/example/ws/security/basic</manifest.name>
@@ -406,6 +410,11 @@
             </exclusion>
          </exclusions>
       </dependency>
+      <dependency>
+         <!-- Test Containers -->
+	     <groupId>org.testcontainers</groupId>
+	     <artifactId>testcontainers</artifactId>
+	  </dependency>
    </dependencies>
 
    <!-- ********************************************** -->

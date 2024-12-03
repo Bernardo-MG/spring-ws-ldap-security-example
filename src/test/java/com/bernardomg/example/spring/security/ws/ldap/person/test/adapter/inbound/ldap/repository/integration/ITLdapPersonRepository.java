@@ -14,7 +14,7 @@ import com.bernardomg.example.spring.security.ws.ldap.test.configuration.annotat
 
 @LdapIntegrationTest
 @DisplayName("LdapPersonRepository")
-public class LdapPersonRepositoryIT {
+public class ITLdapPersonRepository {
 
     @Autowired
     private PersonRepository repository;

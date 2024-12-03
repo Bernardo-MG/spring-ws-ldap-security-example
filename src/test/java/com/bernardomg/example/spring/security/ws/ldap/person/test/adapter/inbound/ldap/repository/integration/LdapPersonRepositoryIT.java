@@ -1,5 +1,5 @@
 
-package com.bernardomg.example.spring.security.ws.ldap.person.test.adapter.inbound.ldap.repository;
+package com.bernardomg.example.spring.security.ws.ldap.person.test.adapter.inbound.ldap.repository.integration;
 
 import java.util.Collection;
 
@@ -14,7 +14,7 @@ import com.bernardomg.example.spring.security.ws.ldap.test.configuration.annotat
 
 @LdapIntegrationTest
 @DisplayName("LdapPersonRepository")
-public class LdapPersonRepositoryTest {
+public class LdapPersonRepositoryIT {
 
     @Autowired
     private PersonRepository repository;

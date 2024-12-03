@@ -356,12 +356,6 @@
       <!-- ======= TEST ENVIRONMENT DEPENDENCIES ======== -->
       <!-- ============================================== -->
       <dependency>
-         <!-- Hamcrest -->
-         <groupId>org.hamcrest</groupId>
-         <artifactId>hamcrest-core</artifactId>
-         <scope>test</scope>
-      </dependency>
-      <dependency>
          <!-- JSON Path -->
          <groupId>com.jayway.jsonpath</groupId>
          <artifactId>json-path</artifactId>
@@ -372,19 +366,6 @@
          <groupId>org.junit.jupiter</groupId>
          <artifactId>junit-jupiter-engine</artifactId>
          <scope>test</scope>
-      </dependency>
-      <dependency>
-         <!-- JUnit Jupiter Platform -->
-         <groupId>org.junit.platform</groupId>
-         <artifactId>junit-platform-runner</artifactId>
-         <scope>test</scope>
-         <exclusions>
-            <exclusion>
-               <!-- JUnit 3 -->
-               <groupId>junit</groupId>
-               <artifactId>junit</artifactId>
-            </exclusion>
-         </exclusions>
       </dependency>
       <dependency>
          <!-- Mockito -->
@@ -411,10 +392,17 @@
          </exclusions>
       </dependency>
       <dependency>
-         <!-- Test Containers -->
-	     <groupId>org.testcontainers</groupId>
-	     <artifactId>testcontainers</artifactId>
-	  </dependency>
+         <!-- Test containers -->
+         <groupId>org.testcontainers</groupId>
+         <artifactId>testcontainers</artifactId>
+         <scope>test</scope>
+      </dependency>
+      <dependency>
+         <!-- AssertJ -->
+         <groupId>org.assertj</groupId>
+         <artifactId>assertj-core</artifactId>
+         <scope>test</scope>
+      </dependency>
    </dependencies>
 
    <!-- ********************************************** -->

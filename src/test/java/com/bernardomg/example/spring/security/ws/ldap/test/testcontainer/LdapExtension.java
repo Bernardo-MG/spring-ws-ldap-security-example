@@ -12,13 +12,13 @@ public final class LdapExtension implements Extension, BeforeAllCallback, AfterA
 
     @SuppressWarnings("resource")
     private static final GenericContainer<?> LDAP_CONTAINER = new GenericContainer<>("bitnami/openldap:2.6.8")
-        .withExposedPorts(389)
+        .withExposedPorts(1389)
         .withEnv("LDAP_ROOT", "dc=bernardomg,dc=com")
         .withEnv("LDAP_DOMAIN", "example.com")
         .withEnv("LDAP_GROUP", "people")
         .withEnv("LDAP_ADMIN_PASSWORD", "admin")
         .withEnv("LDAP_CONFIG_ADMIN_PASSWORD", "admin")
-        .withEnv("LDAP_PORT_NUMBER", "389");
+        .withEnv("LDAP_PORT_NUMBER", "1389");
 
     @Override
     public final void afterAll(final ExtensionContext context) {
@@ -29,15 +29,17 @@ public final class LdapExtension implements Extension, BeforeAllCallback, AfterA
     public final void beforeAll(final ExtensionContext context) {
         LDAP_CONTAINER.start();
         LDAP_CONTAINER.copyFileToContainer(MountableFile.forClasspathResource("/schema/custom.ldif"),
-            "/ldap-db-users.ldif");
+            "/ldifs/custom.ldif");
 
-        System.setProperty("security.ldap.url",
-            "ldap://localhost:" + LDAP_CONTAINER.getMappedPort(389) + "/dc=bernardomg,dc=com");
+        final String url = "ldap://" + LDAP_CONTAINER.getHost() + ":" + LDAP_CONTAINER.getMappedPort(1389);
+        System.out.println(url);
+
+        System.setProperty("security.ldap.url", url + "/dc=bernardomg,dc=com");
         System.setProperty("security.ldap.base", "ou=groups");
         System.setProperty("security.ldap.pattern", "uid={0},ou=people");
 
         // Set LDAP properties to environment
-        System.setProperty("spring.ldap.urls", "ldap://localhost:" + LDAP_CONTAINER.getMappedPort(389));
+        System.setProperty("spring.ldap.urls", url);
         System.setProperty("spring.ldap.base", "dc=bernardomg,dc=com");
         System.setProperty("spring.ldap.username", "uid=bmg,ou=people,dc=bernardomg,dc=com");
         System.setProperty("spring.ldap.password", "1234");

@@ -12,13 +12,13 @@ public final class LdapExtension implements Extension, BeforeAllCallback, AfterA
 
     @SuppressWarnings("resource")
     private static final GenericContainer<?> LDAP_CONTAINER = new GenericContainer<>("bitnami/openldap:2.6.8")
-        .withExposedPorts(1389)
+        .withExposedPorts(389)
         .withEnv("LDAP_ROOT", "dc=bernardomg,dc=com")
         .withEnv("LDAP_DOMAIN", "example.com")
         .withEnv("LDAP_GROUP", "people")
         .withEnv("LDAP_ADMIN_PASSWORD", "admin")
         .withEnv("LDAP_CONFIG_ADMIN_PASSWORD", "admin")
-        .withEnv("LDAP_PORT_NUMBER", "1389");
+        .withEnv("LDAP_PORT_NUMBER", "389");
 
     @Override
     public final void afterAll(final ExtensionContext context) {
@@ -27,12 +27,13 @@ public final class LdapExtension implements Extension, BeforeAllCallback, AfterA
 
     @Override
     public final void beforeAll(final ExtensionContext context) {
+        final String url;
+
         LDAP_CONTAINER.start();
         LDAP_CONTAINER.copyFileToContainer(MountableFile.forClasspathResource("/schema/custom.ldif"),
             "/ldifs/custom.ldif");
 
-        final String url = "ldap://" + LDAP_CONTAINER.getHost() + ":" + LDAP_CONTAINER.getMappedPort(1389);
-        System.out.println(url);
+        url = "ldap://" + LDAP_CONTAINER.getHost() + ":" + LDAP_CONTAINER.getMappedPort(389);
 
         System.setProperty("security.ldap.url", url + "/dc=bernardomg,dc=com");
         System.setProperty("security.ldap.base", "ou=groups");

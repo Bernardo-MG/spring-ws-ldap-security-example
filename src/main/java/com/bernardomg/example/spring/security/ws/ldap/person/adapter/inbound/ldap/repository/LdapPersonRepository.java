@@ -40,11 +40,15 @@ public final class LdapPersonRepository implements PersonRepository {
             .is("person");
 
         persons = ldapTemplate.search(query, (final Attributes attrs) -> {
-            final String id      = (String) attrs.get("uid")
+            final String id;
+            final String name;
+            final String surname;
+
+            id = (String) attrs.get("uid")
                 .get();
-            final String name    = (String) attrs.get("cn")
+            name = (String) attrs.get("cn")
                 .get();
-            final String surname = (String) attrs.get("sn")
+            surname = (String) attrs.get("sn")
                 .get();
             return new Person(id, name, surname);
         });

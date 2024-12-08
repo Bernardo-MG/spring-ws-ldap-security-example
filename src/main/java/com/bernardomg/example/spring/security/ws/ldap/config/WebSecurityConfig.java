@@ -84,8 +84,8 @@ public class WebSecurityConfig {
             .passwordAttribute("userPassword");
     }
 
-    @Bean
-    public SecurityFilterChain filterChain(final HttpSecurity http) throws Exception {
+    @Bean("webSecurityFilterChain")
+    public SecurityFilterChain getWebSecurityFilterChain(final HttpSecurity http) throws Exception {
         http
             // Whitelist access
             .authorizeHttpRequests(new WhitelistRequestCustomizer(Arrays.asList("/actuator/**")))

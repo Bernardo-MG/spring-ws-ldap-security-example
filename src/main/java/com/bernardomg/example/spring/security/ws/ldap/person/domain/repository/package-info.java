@@ -22,20 +22,8 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.spring.security.ws.ldap.user.domain.model;
-
-import java.util.Collection;
-
-import lombok.Builder;
-
 /**
- * User.
- *
- * @author Bernardo Mart&iacute;nez Garrido
- *
+ * Person repository.
  */
-@Builder(setterPrefix = "with")
-public record User(String email, String username, String name, boolean enabled, boolean expired, boolean locked,
-        boolean passwordExpired, Collection<Privilege> privileges) {
 
-}
+package com.bernardomg.example.spring.security.ws.ldap.person.domain.repository;

@@ -1,7 +1,7 @@
 /**
  * The MIT License (MIT)
  * <p>
- * Copyright (c) 2022-2024 the original author or authors.
+ * Copyright (c) 2022-2025 the original author or authors.
  * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -59,6 +59,14 @@ public class SecurityConfig {
     // @Autowired
     // private PasswordEncoder passwordEncoder;
 
+    /**
+     * Sets up the authentication with LDAP configuration.
+     * 
+     * @param auth
+     *            authentication builder
+     * @throws Exception
+     *             if anything fails
+     */
     @Autowired
     public void configure(final AuthenticationManagerBuilder auth) throws Exception {
         log.info("Connecting to LDAP at {}. Pattern {} and search base {}", ldapProperties.getUrl(),

@@ -1,7 +1,7 @@
 /**
  * The MIT License (MIT)
  * <p>
- * Copyright (c) 2023 the original author or authors.
+ * Copyright (c) 2022-2025 the original author or authors.
  * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -37,12 +37,17 @@ import com.bernardomg.example.spring.security.ws.ldap.user.domain.repository.Use
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * Person repository which takes the data from the users.
+ * Person repository which takes the data from the users. Reads from the users repository, and maps into {@code Person}.
+ *
+ * @author Bernardo Mart&iacute;nez Garrido
  */
 @Slf4j
 @Repository
 public final class UserPersonRepository implements PersonRepository {
 
+    /**
+     * User repository. The data for the persons is taken from here.
+     */
     private final UserRepository userRepository;
 
     public UserPersonRepository(final UserRepository userRepo) {

@@ -1,7 +1,7 @@
 /**
  * The MIT License (MIT)
  * <p>
- * Copyright (c) 2022-2024 the original author or authors.
+ * Copyright (c) 2022-2025 the original author or authors.
  * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,8 +22,35 @@
  * SOFTWARE.
  */
 
-/**
- * Security configuration.
- */
+package com.bernardomg.example.spring.security.ws.ldap.config;
 
-package com.bernardomg.example.spring.security.ws.ldap.security.configuration;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+
+import lombok.Data;
+
+/**
+ * LDAP configuration properties.
+ *
+ * @author Bernardo Mart&iacute;nez Garrido
+ *
+ */
+@Data
+@ConfigurationProperties(prefix = "security.ldap")
+public final class LdapProperties {
+
+    /**
+     * Group search base.
+     */
+    private String base;
+
+    /**
+     * DN search pattern.
+     */
+    private String pattern;
+
+    /**
+     * LDAP server URL.
+     */
+    private String url;
+
+}

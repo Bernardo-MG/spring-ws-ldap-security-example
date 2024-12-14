@@ -1,7 +1,7 @@
 /**
  * The MIT License (MIT)
  * <p>
- * Copyright (c) 2022-2024 the original author or authors.
+ * Copyright (c) 2022-2025 the original author or authors.
  * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -24,14 +24,16 @@
 
 package com.bernardomg.example.spring.security.ws.ldap.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import com.bernardomg.example.spring.security.ws.ldap.security.property.LdapProperties;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Security configuration.
@@ -42,13 +44,43 @@ import com.bernardomg.example.spring.security.ws.ldap.security.property.LdapProp
 @Configuration
 @EnableMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
 @EnableConfigurationProperties(LdapProperties.class)
+@Slf4j
 public class SecurityConfig {
 
     /**
-     * Default constructor.
+     * LDAP configuration properties.
      */
-    public SecurityConfig() {
-        super();
+    @Autowired
+    private LdapProperties ldapProperties;
+
+    /**
+     * Password encoder for checking against encrypted passwords.
+     */
+    // @Autowired
+    // private PasswordEncoder passwordEncoder;
+
+    /**
+     * Sets up the authentication with LDAP configuration.
+     * 
+     * @param auth
+     *            authentication builder
+     * @throws Exception
+     *             if anything fails
+     */
+    @Autowired
+    public void configure(final AuthenticationManagerBuilder auth) throws Exception {
+        log.info("Connecting to LDAP at {}. Pattern {} and search base {}", ldapProperties.getUrl(),
+            ldapProperties.getPattern(), ldapProperties.getBase());
+        auth.ldapAuthentication()
+            .userDnPatterns(ldapProperties.getPattern())
+            .groupSearchBase(ldapProperties.getBase())
+            .contextSource()
+            .url(ldapProperties.getUrl())
+            // Check against encrypted password
+            .and()
+            .passwordCompare()
+            // .passwordEncoder(passwordEncoder)
+            .passwordAttribute("userPassword");
     }
 
     /**

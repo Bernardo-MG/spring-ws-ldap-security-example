@@ -22,31 +22,8 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.spring.security.ws.ldap.config;
-
-import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-
 /**
- * Web configuration.
- *
- * @author Bernardo Mart&iacute;nez Garrido
- *
+ * JPA user model.
  */
-@Configuration
-public class WebConfiguration implements WebMvcConfigurer {
 
-    /**
-     * Default constructor.
-     */
-    public WebConfiguration() {
-        super();
-    }
-
-    @Override
-    public void addCorsMappings(final CorsRegistry registry) {
-        registry.addMapping("/**");
-    }
-
-}
+package com.bernardomg.example.spring.security.ws.ldap.user.adapter.inbound.jpa.model;

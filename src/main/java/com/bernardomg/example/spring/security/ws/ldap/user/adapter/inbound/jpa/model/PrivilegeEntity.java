@@ -22,31 +22,49 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.spring.security.ws.ldap.config;
+package com.bernardomg.example.spring.security.ws.ldap.user.adapter.inbound.jpa.model;
 
-import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import java.io.Serializable;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.persistence.TableGenerator;
+import lombok.Data;
 
 /**
- * Web configuration.
+ * Privilege entity.
  *
  * @author Bernardo Mart&iacute;nez Garrido
  *
  */
-@Configuration
-public class WebConfiguration implements WebMvcConfigurer {
+@Data
+@Entity(name = "Privilege")
+@Table(name = "privileges")
+@TableGenerator(name = "seq_privileges_id", table = "sequences", pkColumnName = "sequence", valueColumnName = "count",
+        allocationSize = 1)
+public class PrivilegeEntity implements Serializable {
 
     /**
-     * Default constructor.
+     * Serialization id.
      */
-    public WebConfiguration() {
-        super();
-    }
+    private static final long serialVersionUID = 8513041662486312372L;
 
-    @Override
-    public void addCorsMappings(final CorsRegistry registry) {
-        registry.addMapping("/**");
-    }
+    /**
+     * Entity id.
+     */
+    @Id
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "seq_privileges_id")
+    @Column(name = "id", nullable = false, unique = true)
+    private Long              id;
+
+    /**
+     * Privilege name.
+     */
+    @Column(name = "name", nullable = false, unique = true, length = 60)
+    private String            name;
 
 }

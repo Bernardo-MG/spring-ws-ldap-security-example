@@ -32,7 +32,10 @@
             Now using just Spring LDAP.
          </action>
       </release>
-      <release version="1.2.0" date="2024-11-14" description="">
+      <release version="1.2.0" date="2024-14-11" description="Updated structure">
+         <action dev="bmg" type="update">
+            Updated structure.
+         </action>
       </release>
    </body>
 </document>

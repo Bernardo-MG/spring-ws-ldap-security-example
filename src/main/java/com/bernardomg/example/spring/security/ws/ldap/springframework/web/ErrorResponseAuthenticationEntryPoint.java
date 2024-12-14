@@ -1,7 +1,7 @@
 /**
  * The MIT License (MIT)
  * <p>
- * Copyright (c) 2022-2024 the original author or authors.
+ * Copyright (c) 2022-2025 the original author or authors.
  * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.spring.security.ws.ldap.security.entrypoint;
+package com.bernardomg.example.spring.security.ws.ldap.springframework.web;
 
 import java.io.IOException;
 

@@ -22,43 +22,58 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.spring.security.ws.ldap.person.usecase.service;
+package com.bernardomg.example.spring.security.ws.ldap.person.adapter.inbound.user.repository;
 
 import java.util.Collection;
 import java.util.Objects;
 
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Repository;
 
 import com.bernardomg.example.spring.security.ws.ldap.person.domain.model.Person;
 import com.bernardomg.example.spring.security.ws.ldap.person.domain.repository.PersonRepository;
+import com.bernardomg.example.spring.security.ws.ldap.user.domain.model.User;
+import com.bernardomg.example.spring.security.ws.ldap.user.domain.repository.UserRepository;
 
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * Default person service, which just takes the data from the person repository.
+ * Person repository which takes the data from the users. Reads from the users repository, and maps into {@code Person}.
  *
  * @author Bernardo Mart&iacute;nez Garrido
  */
 @Slf4j
-@Service
-public final class DefaultPersonService implements PersonService {
+@Repository
+public final class UserPersonRepository implements PersonRepository {
 
     /**
-     * Person repository to read the data.
+     * User repository. The data for the persons is taken from here.
      */
-    private final PersonRepository personRepository;
+    private final UserRepository userRepository;
 
-    public DefaultPersonService(final PersonRepository personRepo) {
+    public UserPersonRepository(final UserRepository userRepo) {
         super();
 
-        personRepository = Objects.requireNonNull(personRepo);
+        userRepository = Objects.requireNonNull(userRepo, "Received a null pointer as user repository");
     }
 
     @Override
-    public final Collection<Person> getAll() {
-        log.debug("Reading all persons");
+    public final Collection<Person> findAll() {
+        final Collection<Person> persons;
 
-        return personRepository.findAll();
+        log.debug("Finding all the persons");
+
+        persons = userRepository.findAll()
+            .stream()
+            .map(this::toPerson)
+            .toList();
+
+        log.debug("Found all the persons: {}", persons);
+
+        return persons;
+    }
+
+    private final Person toPerson(final User user) {
+        return new Person(user.username(), user.name());
     }
 
 }

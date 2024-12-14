@@ -26,13 +26,8 @@ services:
       - "8080:8080"
       - "8000:8000"
     depends_on:
-      - ldap-auth-server
-    healthcheck:
-      test: "wget -T5 -qO- http://localhost:8080/actuator/health | grep UP || exit 1"
-      interval: 2s
-      timeout: 3s
-      retries: 5
-      start_period: 60s
+      ldap-auth-server:
+        condition: service_healthy
     environment:
       # LDAP
       - security.ldap.url=ldap://ldap-auth-server:389/dc=bernardomg,dc=com
@@ -45,7 +40,11 @@ services:
       - spring.security.ldap.base=ou=people,dc=bernardomg,dc=com
       - spring.security.ldap.user-dn-pattern=uid={0},ou=people
       - spring.security.ldap.password-attribute=1234
+    volumes:
+      - ldap-logs:/app/logs
     networks:
       - auth
+volumes:
+  ldap-logs:
 networks:
   auth:

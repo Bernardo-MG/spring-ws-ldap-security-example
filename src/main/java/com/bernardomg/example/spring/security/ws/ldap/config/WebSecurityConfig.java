@@ -1,7 +1,7 @@
 /**
  * The MIT License (MIT)
  * <p>
- * Copyright (c) 2022-2024 the original author or authors.
+ * Copyright (c) 2022-2025 the original author or authors.
  * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -24,22 +24,20 @@
 
 package com.bernardomg.example.spring.security.ws.ldap.config;
 
-import java.util.Arrays;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.CsrfConfigurer;
+import org.springframework.security.config.annotation.web.configurers.FormLoginConfigurer;
+import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.servlet.util.matcher.MvcRequestMatcher;
+import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
 
-import com.bernardomg.example.spring.security.ws.ldap.security.configuration.WhitelistRequestCustomizer;
-import com.bernardomg.example.spring.security.ws.ldap.security.entrypoint.ErrorResponseAuthenticationEntryPoint;
-import com.bernardomg.example.spring.security.ws.ldap.security.property.LdapProperties;
-
-import lombok.extern.slf4j.Slf4j;
+import com.bernardomg.example.spring.security.ws.ldap.springframework.web.ErrorResponseAuthenticationEntryPoint;
 
 /**
  * Web security configuration.
@@ -49,56 +47,49 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Configuration
 @EnableWebSecurity
-@Slf4j
 public class WebSecurityConfig {
-
-    /**
-     * LDAP configuration properties.
-     */
-    @Autowired
-    private LdapProperties ldapProperties;
-
-    /**
-     * Password encoder for checking against encrypted passwords.
-     */
-    // @Autowired
-    // private PasswordEncoder passwordEncoder;
 
     public WebSecurityConfig() {
         super();
     }
 
-    @Autowired
-    public void configure(final AuthenticationManagerBuilder auth) throws Exception {
-        log.info("Connecting to LDAP at {}. Pattern {} and search base {}", ldapProperties.getUrl(),
-            ldapProperties.getPattern(), ldapProperties.getBase());
-        auth.ldapAuthentication()
-            .userDnPatterns(ldapProperties.getPattern())
-            .groupSearchBase(ldapProperties.getBase())
-            .contextSource()
-            .url(ldapProperties.getUrl())
-            // Check against encrypted password
-            .and()
-            .passwordCompare()
-            // .passwordEncoder(passwordEncoder)
-            .passwordAttribute("userPassword");
-    }
+    /**
+     * Web security filter chain. Sets up all the authentication requirements for requests.
+     *
+     * @param http
+     *            HTTP security component
+     * @param introspector
+     *            utility class to find routes
+     * @return web security filter chain with all authentication requirements
+     * @throws Exception
+     *             if the setup fails
+     */
+    @Bean("webSecurityFilterChain")
+    public SecurityFilterChain getWebSecurityFilterChain(final HttpSecurity http,
+            final HandlerMappingIntrospector introspector) throws Exception {
+        final MvcRequestMatcher.Builder mvc;
 
-    @Bean
-    public SecurityFilterChain filterChain(final HttpSecurity http) throws Exception {
+        mvc = new MvcRequestMatcher.Builder(introspector);
         http
             // Whitelist access
-            .authorizeHttpRequests(new WhitelistRequestCustomizer(Arrays.asList("/actuator/**")))
-            .csrf(csrf -> csrf.disable())
-            .cors(cors -> {})
+            .authorizeHttpRequests(c -> c
+                .requestMatchers(mvc.pattern("/actuator/**"), mvc.pattern("/login/**"), mvc.pattern("/favicon.ico"),
+                    mvc.pattern("/error/**"))
+                .permitAll())
+            // Authenticate all others
+            .authorizeHttpRequests(c -> c.anyRequest()
+                .authenticated())
+            .httpBasic(Customizer.withDefaults())
+            // CSRF and CORS
+            .csrf(CsrfConfigurer::disable)
+            .cors(Customizer.withDefaults())
             // Authentication error handling
             .exceptionHandling(handler -> handler.authenticationEntryPoint(new ErrorResponseAuthenticationEntryPoint()))
             // Stateless
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             // Disable login and logout forms
-            .formLogin(c -> c.disable())
-            .logout(c -> c.disable())
-            .httpBasic(c -> {});
+            .formLogin(FormLoginConfigurer::disable)
+            .logout(LogoutConfigurer::disable);
 
         return http.build();
     }

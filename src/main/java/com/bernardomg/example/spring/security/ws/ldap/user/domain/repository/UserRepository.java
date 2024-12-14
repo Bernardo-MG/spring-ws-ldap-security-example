@@ -22,31 +22,24 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.spring.security.ws.ldap.config;
+package com.bernardomg.example.spring.security.ws.ldap.user.domain.repository;
 
-import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import java.util.Collection;
+
+import com.bernardomg.example.spring.security.ws.ldap.user.domain.model.User;
 
 /**
- * Web configuration.
+ * User repository.
  *
  * @author Bernardo Mart&iacute;nez Garrido
- *
  */
-@Configuration
-public class WebConfiguration implements WebMvcConfigurer {
+public interface UserRepository {
 
     /**
-     * Default constructor.
+     * Returns all the users.
+     *
+     * @return the user for the received username
      */
-    public WebConfiguration() {
-        super();
-    }
-
-    @Override
-    public void addCorsMappings(final CorsRegistry registry) {
-        registry.addMapping("/**");
-    }
+    public Collection<User> findAll();
 
 }

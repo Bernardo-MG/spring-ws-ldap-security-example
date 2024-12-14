@@ -26,4 +26,4 @@
  * Audit components.
  */
 
-package com.bernardomg.example.spring.security.ws.ldap.security.audit;
+package com.bernardomg.example.spring.security.ws.ldap.springframework.audit;

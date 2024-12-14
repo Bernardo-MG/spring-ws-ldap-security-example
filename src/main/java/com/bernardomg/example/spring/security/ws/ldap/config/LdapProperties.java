@@ -22,8 +22,35 @@
  * SOFTWARE.
  */
 
-/**
- * JWT entry points.
- */
+package com.bernardomg.example.spring.security.ws.ldap.config;
 
-package com.bernardomg.example.spring.security.ws.ldap.security.entrypoint;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+
+import lombok.Data;
+
+/**
+ * LDAP configuration properties.
+ *
+ * @author Bernardo Mart&iacute;nez Garrido
+ *
+ */
+@Data
+@ConfigurationProperties(prefix = "security.ldap")
+public final class LdapProperties {
+
+    /**
+     * Group search base.
+     */
+    private String base;
+
+    /**
+     * DN search pattern.
+     */
+    private String pattern;
+
+    /**
+     * LDAP server URL.
+     */
+    private String url;
+
+}

@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.spring.security.ws.ldap.security.entrypoint;
+package com.bernardomg.example.spring.security.ws.ldap.springframework.web;
 
 import java.io.IOException;
 

@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.spring.security.ws.ldap.security.audit;
+package com.bernardomg.example.spring.security.ws.ldap.springframework.audit;
 
 import java.util.Map;
 

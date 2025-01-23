@@ -22,14 +22,14 @@ public class ITUserPersonRepository {
     @Test
     @DisplayName("When finding all, all the people are returned")
     public void testFindAll() {
-        final Collection<Person> persons;
+        final Collection<Person> people;
 
         // WHEN
-        persons = repository.findAll();
+        people = repository.findAll();
 
         // THEN
-        Assertions.assertThat(persons)
-            .as("persons")
+        Assertions.assertThat(people)
+            .as("people")
             .isNotEmpty();
     }
 

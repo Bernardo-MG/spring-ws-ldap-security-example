@@ -24,18 +24,31 @@
 
 package com.bernardomg.example.spring.security.ws.ldap.user.domain.model;
 
-import java.util.Collection;
-
 import lombok.Builder;
 
 /**
  * User.
+ *
+ * @param email
+ *            user email
+ * @param username
+ *            user username
+ * @param name
+ *            user name
+ * @param enabled
+ *            user enabled flag
+ * @param expired
+ *            user expired flag
+ * @param locked
+ *            user locked flag
+ * @param passwordExpired
+ *            user password expired flag
  *
  * @author Bernardo Mart&iacute;nez Garrido
  *
  */
 @Builder(setterPrefix = "with")
 public record User(String email, String username, String name, boolean enabled, boolean expired, boolean locked,
-        boolean passwordExpired, Collection<Privilege> privileges) {
+        boolean passwordExpired) {
 
 }

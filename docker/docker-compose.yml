@@ -3,6 +3,11 @@ services:
   ldap-auth-server:
     image: bitnami/openldap:2.6.8
     container_name: ldap-auth-server
+    healthcheck:
+      test: ["CMD", "ldapsearch", "-x", "-H", "ldap://localhost:389", "-b", "dc=bernardomg,dc=com"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
     volumes:
       - ./schema:/ldifs
     ports:
@@ -37,9 +42,6 @@ services:
       - spring.ldap.base=dc=bernardomg,dc=com
       - spring.ldap.username=uid=bmg,ou=people,dc=bernardomg,dc=com
       - spring.ldap.password=1234
-      - spring.security.ldap.base=ou=people,dc=bernardomg,dc=com
-      - spring.security.ldap.user-dn-pattern=uid={0},ou=people
-      - spring.security.ldap.password-attribute=1234
     volumes:
       - ldap-logs:/app/logs
     networks:

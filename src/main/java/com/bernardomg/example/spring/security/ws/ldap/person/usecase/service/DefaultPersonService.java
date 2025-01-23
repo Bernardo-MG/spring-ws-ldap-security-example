@@ -25,13 +25,13 @@
 package com.bernardomg.example.spring.security.ws.ldap.person.usecase.service;
 
 import java.util.Collection;
-import java.util.Objects;
 
 import org.springframework.stereotype.Service;
 
 import com.bernardomg.example.spring.security.ws.ldap.person.domain.model.Person;
 import com.bernardomg.example.spring.security.ws.ldap.person.domain.repository.PersonRepository;
 
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -41,18 +41,13 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @Service
+@AllArgsConstructor
 public final class DefaultPersonService implements PersonService {
 
     /**
      * Person repository to read the data.
      */
     private final PersonRepository personRepository;
-
-    public DefaultPersonService(final PersonRepository personRepo) {
-        super();
-
-        personRepository = Objects.requireNonNull(personRepo);
-    }
 
     @Override
     public final Collection<Person> getAll() {

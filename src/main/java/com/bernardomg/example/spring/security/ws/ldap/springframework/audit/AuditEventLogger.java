@@ -45,6 +45,13 @@ import lombok.extern.slf4j.Slf4j;
 public final class AuditEventLogger {
 
     /**
+     * Default constructor.
+     */
+    public AuditEventLogger() {
+        super();
+    }
+
+    /**
      * Intercepts audit events and logs them.
      *
      * @param auditApplicationEvent

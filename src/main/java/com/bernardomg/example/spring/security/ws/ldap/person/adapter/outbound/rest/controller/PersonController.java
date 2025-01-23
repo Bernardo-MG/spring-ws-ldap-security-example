@@ -50,6 +50,11 @@ public class PersonController {
      */
     private final PersonService service;
 
+    /**
+     * Returns all the people.
+     *
+     * @return all the people registered in the app
+     */
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public Iterable<Person> readAll() {
         return service.getAll();

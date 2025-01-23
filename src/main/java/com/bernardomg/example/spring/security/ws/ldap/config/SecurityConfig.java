@@ -61,7 +61,7 @@ public class SecurityConfig {
 
     /**
      * Sets up the authentication with LDAP configuration.
-     * 
+     *
      * @param auth
      *            authentication builder
      * @throws Exception

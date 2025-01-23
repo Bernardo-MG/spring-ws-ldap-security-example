@@ -27,6 +27,9 @@ package com.bernardomg.example.spring.security.ws.ldap.user.domain.model;
 /**
  * Privilege.
  *
+ * @param name
+ *            privilege name
+ *
  * @author Bernardo Mart&iacute;nez Garrido
  *
  */

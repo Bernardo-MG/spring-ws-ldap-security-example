@@ -37,13 +37,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class WebConfiguration implements WebMvcConfigurer {
 
-    /**
-     * Default constructor.
-     */
-    public WebConfiguration() {
-        super();
-    }
-
     @Override
     public void addCorsMappings(final CorsRegistry registry) {
         registry.addMapping("/**");

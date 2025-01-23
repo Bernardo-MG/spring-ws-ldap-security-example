@@ -25,7 +25,6 @@
 package com.bernardomg.example.spring.security.ws.ldap.person.adapter.inbound.user.repository;
 
 import java.util.Collection;
-import java.util.Objects;
 
 import org.springframework.stereotype.Repository;
 
@@ -34,6 +33,7 @@ import com.bernardomg.example.spring.security.ws.ldap.person.domain.repository.P
 import com.bernardomg.example.spring.security.ws.ldap.user.domain.model.User;
 import com.bernardomg.example.spring.security.ws.ldap.user.domain.repository.UserRepository;
 
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -43,18 +43,13 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @Repository
+@AllArgsConstructor
 public final class UserPersonRepository implements PersonRepository {
 
     /**
      * User repository. The data for the persons is taken from here.
      */
     private final UserRepository userRepository;
-
-    public UserPersonRepository(final UserRepository userRepo) {
-        super();
-
-        userRepository = Objects.requireNonNull(userRepo, "Received a null pointer as user repository");
-    }
 
     @Override
     public final Collection<Person> findAll() {

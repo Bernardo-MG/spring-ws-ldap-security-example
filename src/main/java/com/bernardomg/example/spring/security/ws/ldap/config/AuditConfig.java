@@ -39,13 +39,6 @@ import org.springframework.context.annotation.Configuration;
 public class AuditConfig {
 
     /**
-     * Default constructor.
-     */
-    public AuditConfig() {
-        super();
-    }
-
-    /**
      * Audit event repository, to store and read audit data. As this is just an example it will be an in-memory
      * repository.
      *

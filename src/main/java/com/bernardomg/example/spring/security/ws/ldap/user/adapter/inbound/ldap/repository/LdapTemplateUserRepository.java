@@ -26,7 +26,6 @@ package com.bernardomg.example.spring.security.ws.ldap.user.adapter.inbound.ldap
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Objects;
 
 import javax.naming.NamingException;
 import javax.naming.directory.Attributes;
@@ -40,6 +39,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.bernardomg.example.spring.security.ws.ldap.user.domain.model.User;
 import com.bernardomg.example.spring.security.ws.ldap.user.domain.repository.UserRepository;
 
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -50,15 +50,10 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Repository
 @Transactional
+@AllArgsConstructor
 public final class LdapTemplateUserRepository implements UserRepository {
 
     private final LdapTemplate ldapTemplate;
-
-    public LdapTemplateUserRepository(final LdapTemplate template) {
-        super();
-
-        ldapTemplate = Objects.requireNonNull(template);
-    }
 
     @Override
     public final Collection<User> findAll() {

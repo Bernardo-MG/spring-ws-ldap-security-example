@@ -31,6 +31,23 @@ import lombok.Builder;
 /**
  * User.
  *
+ * @param email
+ *            user email
+ * @param username
+ *            user username
+ * @param name
+ *            user name
+ * @param enabled
+ *            user enabled flag
+ * @param expired
+ *            user expired flag
+ * @param locked
+ *            user locked flag
+ * @param passwordExpired
+ *            user password expired flag
+ * @param privileges
+ *            user privileges
+ *
  * @author Bernardo Mart&iacute;nez Garrido
  *
  */

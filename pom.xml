@@ -392,6 +392,12 @@
          </exclusions>
       </dependency>
       <dependency>
+         <!-- Spring Security Test -->
+         <groupId>org.springframework.security</groupId>
+         <artifactId>spring-security-test</artifactId>
+         <scope>test</scope>
+      </dependency>
+      <dependency>
          <!-- Test containers -->
          <groupId>org.testcontainers</groupId>
          <artifactId>testcontainers</artifactId>

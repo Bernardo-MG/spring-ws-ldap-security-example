@@ -37,7 +37,10 @@
             Updated structure.
          </action>
       </release>
-      <release version="1.3.0" date="2024-12-14" description="">
+      <release version="1.2.1" date="2025-01-23" description="Clean up">
+         <action dev="bmg" type="update">
+            Cleaned up project.
+         </action>
       </release>
    </body>
 </document>

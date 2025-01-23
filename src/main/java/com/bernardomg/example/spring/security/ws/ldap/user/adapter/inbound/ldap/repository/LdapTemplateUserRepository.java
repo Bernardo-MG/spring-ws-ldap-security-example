@@ -25,7 +25,6 @@
 package com.bernardomg.example.spring.security.ws.ldap.user.adapter.inbound.ldap.repository;
 
 import java.util.Collection;
-import java.util.List;
 
 import javax.naming.NamingException;
 import javax.naming.directory.Attributes;
@@ -79,7 +78,7 @@ public final class LdapTemplateUserRepository implements UserRepository {
             .get();
         name = (String) attributes.get("cn")
             .get();
-        return new User("", id, name, true, false, false, false, List.of());
+        return new User("", id, name, true, false, false, false);
     }
 
 }

@@ -37,7 +37,7 @@ public interface PersonService {
 
     /**
      * Returns all the people.
-     * 
+     *
      * @return all the people
      */
     public Collection<Person> getAll();

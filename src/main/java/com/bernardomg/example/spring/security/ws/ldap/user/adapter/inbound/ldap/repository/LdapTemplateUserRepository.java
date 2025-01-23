@@ -22,11 +22,9 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.spring.security.ws.ldap.user.adapter.inbound.jpa.repository;
+package com.bernardomg.example.spring.security.ws.ldap.user.adapter.inbound.ldap.repository;
 
 import java.util.Collection;
-import java.util.List;
-import java.util.Objects;
 
 import javax.naming.NamingException;
 import javax.naming.directory.Attributes;
@@ -35,11 +33,11 @@ import org.springframework.ldap.core.LdapTemplate;
 import org.springframework.ldap.query.LdapQuery;
 import org.springframework.ldap.query.LdapQueryBuilder;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.bernardomg.example.spring.security.ws.ldap.user.domain.model.User;
 import com.bernardomg.example.spring.security.ws.ldap.user.domain.repository.UserRepository;
 
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -49,16 +47,10 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @Repository
-@Transactional
-public final class LdapUserRepository implements UserRepository {
+@AllArgsConstructor
+public final class LdapTemplateUserRepository implements UserRepository {
 
     private final LdapTemplate ldapTemplate;
-
-    public LdapUserRepository(final LdapTemplate template) {
-        super();
-
-        ldapTemplate = Objects.requireNonNull(template);
-    }
 
     @Override
     public final Collection<User> findAll() {
@@ -86,7 +78,7 @@ public final class LdapUserRepository implements UserRepository {
             .get();
         name = (String) attributes.get("cn")
             .get();
-        return new User("", id, name, true, false, false, false, List.of());
+        return new User("", id, name, true, false, false, false);
     }
 
 }

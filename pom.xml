@@ -21,7 +21,7 @@
 
    <groupId>com.bernardomg.example</groupId>
    <artifactId>spring-ws-ldap-security-example</artifactId>
-   <version>1.2.0</version>
+   <version>1.2.1</version>
    <packaging>war</packaging>
 
    <name>Spring WS LDAP Security Example</name>
@@ -390,6 +390,12 @@
                <artifactId>junit-vintage-engine</artifactId>
             </exclusion>
          </exclusions>
+      </dependency>
+      <dependency>
+         <!-- Spring Security Test -->
+         <groupId>org.springframework.security</groupId>
+         <artifactId>spring-security-test</artifactId>
+         <scope>test</scope>
       </dependency>
       <dependency>
          <!-- Test containers -->

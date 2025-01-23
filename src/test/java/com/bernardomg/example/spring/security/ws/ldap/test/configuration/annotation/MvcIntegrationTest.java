@@ -1,7 +1,7 @@
 /**
  * The MIT License (MIT)
  * <p>
- * Copyright (c) 2022-2025 the original author or authors.
+ * Copyright (c) 2022-2023 the original author or authors.
  * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,14 +22,31 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.spring.security.ws.ldap.user.domain.model;
+package com.bernardomg.example.spring.security.ws.ldap.test.configuration.annotation;
 
-/**
- * Privilege.
- *
- * @author Bernardo Mart&iacute;nez Garrido
- *
- */
-public record Privilege(String name) {
+import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
+
+import com.bernardomg.example.spring.security.ws.ldap.Application;
+import com.bernardomg.example.spring.security.ws.ldap.test.testcontainer.LdapExtension;
+
+@SpringJUnitConfig
+@SpringBootTest(classes = Application.class)
+@ActiveProfiles("test")
+@ExtendWith(LdapExtension.class)
+@AutoConfigureMockMvc
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.TYPE)
+@Documented
+public @interface MvcIntegrationTest {
 
 }

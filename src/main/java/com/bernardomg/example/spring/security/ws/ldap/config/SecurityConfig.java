@@ -26,12 +26,9 @@ package com.bernardomg.example.spring.security.ws.ldap.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -54,14 +51,8 @@ public class SecurityConfig {
     private LdapProperties ldapProperties;
 
     /**
-     * Password encoder for checking against encrypted passwords.
-     */
-    // @Autowired
-    // private PasswordEncoder passwordEncoder;
-
-    /**
      * Sets up the authentication with LDAP configuration.
-     * 
+     *
      * @param auth
      *            authentication builder
      * @throws Exception
@@ -79,18 +70,9 @@ public class SecurityConfig {
             // Check against encrypted password
             .and()
             .passwordCompare()
-            // .passwordEncoder(passwordEncoder)
+            // TODO: use enconded password
+            // .passwordEncoder(new BCryptPasswordEncoder())
             .passwordAttribute("userPassword");
-    }
-
-    /**
-     * Password encoder. Used to match the received password to the one securely stored in the DB.
-     *
-     * @return the password encoder
-     */
-    @Bean("passwordEncoder")
-    public PasswordEncoder getPasswordEncoder() {
-        return new BCryptPasswordEncoder();
     }
 
 }

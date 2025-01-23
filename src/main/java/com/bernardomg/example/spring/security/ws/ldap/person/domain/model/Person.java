@@ -27,6 +27,11 @@ package com.bernardomg.example.spring.security.ws.ldap.person.domain.model;
 /**
  * Person.
  *
+ * @param id
+ *            person id
+ * @param name
+ *            person name
+ *
  * @author Bernardo Mart&iacute;nez Garrido
  */
 public record Person(String id, String name) {

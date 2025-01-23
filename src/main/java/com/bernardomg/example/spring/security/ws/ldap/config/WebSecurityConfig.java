@@ -49,10 +49,6 @@ import com.bernardomg.example.spring.security.ws.ldap.springframework.web.ErrorR
 @EnableWebSecurity
 public class WebSecurityConfig {
 
-    public WebSecurityConfig() {
-        super();
-    }
-
     /**
      * Web security filter chain. Sets up all the authentication requirements for requests.
      *

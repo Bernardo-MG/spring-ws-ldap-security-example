@@ -46,11 +46,6 @@ public final class LdapExtension implements Extension, BeforeAllCallback {
         System.setProperty("spring.ldap.base", LDAP_ROOT);
         System.setProperty("spring.ldap.username", "uid=bmg,ou=people,dc=bernardomg,dc=com");
         System.setProperty("spring.ldap.password", PASSWORD);
-
-        // Spring Security LDAP properties
-        System.setProperty("spring.security.ldap.base", "ou=people,dc=bernardomg,dc=com");
-        System.setProperty("spring.security.ldap.user-dn-pattern", PATTERN);
-        System.setProperty("spring.security.ldap.password-attribute", PASSWORD);
     }
 
 }

@@ -26,4 +26,4 @@
  * JPA user repositories.
  */
 
-package com.bernardomg.example.spring.security.ws.ldap.user.adapter.inbound.jpa.repository;
+package com.bernardomg.example.spring.security.ws.ldap.user.adapter.inbound.ldap.repository;

@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package com.bernardomg.example.spring.security.ws.ldap.user.adapter.inbound.jpa.repository;
+package com.bernardomg.example.spring.security.ws.ldap.user.adapter.inbound.ldap.repository;
 
 import java.util.Collection;
 import java.util.List;
@@ -50,11 +50,11 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Repository
 @Transactional
-public final class LdapUserRepository implements UserRepository {
+public final class LdapTemplateUserRepository implements UserRepository {
 
     private final LdapTemplate ldapTemplate;
 
-    public LdapUserRepository(final LdapTemplate template) {
+    public LdapTemplateUserRepository(final LdapTemplate template) {
         super();
 
         ldapTemplate = Objects.requireNonNull(template);
